@@ -13,6 +13,7 @@ public class DAO {
 	
 	
 	private static final ThreadLocal<Session> session = new ThreadLocal<Session>();
+	@SuppressWarnings("deprecation")
 	private static final SessionFactory sessionFactory = new Configuration()
 			.configure().buildSessionFactory();
 	
