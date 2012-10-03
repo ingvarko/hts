@@ -9,11 +9,11 @@ import org.junit.Test;
 
 import com.hts.entities.BroadcastStream;
 import com.hts.exceptions.AppException;
-import com.hts.service.BroadcastStreamService;
+import com.hts.service.BroadcastStreamServiceImpl;
 
 
 public class BroadCastStreamTest {
-	BroadcastStreamService broadcastStreamService = new BroadcastStreamService();
+	BroadcastStreamServiceImpl broadcastStreamService = new BroadcastStreamServiceImpl();
 	// BroadcastStreamService name
 	String name = "testCreateBroadcastStreamService";
 

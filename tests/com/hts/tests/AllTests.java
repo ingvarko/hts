@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
 //    JunitTest1.class,
 //    JunitTest2.class
 
-@Suite.SuiteClasses({BroadCastStreamTest.class})
+@Suite.SuiteClasses({BroadCastStreamTest.class,TestHotelService.class})
 
 public class AllTests {
 }
