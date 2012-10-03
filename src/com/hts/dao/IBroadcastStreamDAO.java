@@ -12,7 +12,7 @@ public interface IBroadcastStreamDAO {
 	void save(BroadcastStream stream) throws AppException;
 	void delete(BroadcastStream stream) throws AppException;	
 	
-	List<BroadcastStream> list() throws AppException;	
+	List<BroadcastStream> getAll() throws AppException;	
 	List<BroadcastStream > list(int firstResult, int maxResults) throws AppException;	
 }
 

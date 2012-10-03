@@ -89,9 +89,9 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<BroadcastStream> list() throws AppException {
+	public List<BroadcastStream> getAll() throws AppException {
 		try {
-			Query q = getSession().createQuery("from BROADCASTSTREAM");
+			Query q = getSession().createQuery("from BroadcastStream");
 			List<BroadcastStream> list = q.list();
 			return list;
 		} catch (HibernateException e) {
@@ -105,7 +105,7 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	public List<BroadcastStream> list(int firstResult, int maxResults)
 			throws AppException {
 		try {
-			Query q = getSession().createQuery("from BROADCASTSTREAM");
+			Query q = getSession().createQuery("from BroadcastStream");
 			q.setFirstResult(firstResult);
 			q.setMaxResults(maxResults);
 			List<BroadcastStream> list = q.list();
@@ -133,6 +133,5 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
-
 	}
 }
