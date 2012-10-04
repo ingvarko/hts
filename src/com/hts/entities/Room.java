@@ -1,105 +1,36 @@
 package com.hts.entities;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "BROADCASTSTREAM")
+@Table(name = "ROOM")
 public class Room {
 
-	public Room(String streamName) {
-		this.streamName = streamName;
-	}
+	private Integer id;
+	private String roomName;
+	private Hotel hotel;
 
 	public Room() {
 	}
+	
+	public Room(String roomName) {
+		this.roomName = roomName;
+	}
 
-	public final static boolean ACTIVE = true;
-	public final static boolean INACTIVE = false;
+	public Room(String roomName, Hotel hotel) {
+		this.roomName = roomName;
+		this.setHotel(hotel);
+	}
 
 	@Id
 	@GeneratedValue
-	@Column(name = "STREAM_ID")
-	private Integer id;
-
-	@Column(name = "STREAM_NAME")
-	private String streamName;
-
-	@Column(name = "ACTIVE")
-	private Boolean isActive;
-
-	@Column(name = "PUBLISHED_DATE")
-	private Date publishedDate;
-
-	@Column(name = "UNPUBLISHED_DATE")
-	private Date unpublishedDate;
-
-	@Column(name = "UPDATE_DATE")
-	private Date updateDate;
-
-	public String getStreamName() {
-		return streamName;
-	}
-
-	public void setStreamName(String streamName) {
-		this.streamName = streamName;
-	}
-
-	public boolean isStatus() {
-		return isActive;
-	}
-
-	public void setStatus(boolean status) {
-		this.isActive = status;
-	}
-
-	public Date getUnpublishedDate() {
-		return unpublishedDate;
-	}
-
-	public void setUnpublishedDate(Date unpublishedDate) {
-		this.unpublishedDate = unpublishedDate;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public boolean isActive() {
-		return isActive == true;
-	}
-
-	public boolean isInactive() {
-		return isActive == false;
-	}
-
-	@Override
-	public String toString() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
-
-		return "[BroadcastStream:id:" + id + " name: " + streamName.toString()
-				+ " publishedDate:" + format.format(publishedDate)
-				+ " updateDate:" + format.format(updateDate) + " isActive: "
-				+ isActive() + "]";
-	}
-
-	// DateFormat myformat = new SimpleDateFormat("yyyy.MM.dd");
-	// System.out.println(myformat.format(new Date()));
-	// try { // DateFormat can parse dates too
-	// Date leapday = myformat.parse("2000.02.29");
-	// }
-	// catch (ParseException e) { /* Handle parsing exception */ }
-
+	@Column(name = "ROOM_ID")
 	public Integer getId() {
 		return id;
 	}
@@ -108,20 +39,21 @@ public class Room {
 		this.id = id;
 	}
 
-	public String getName() {
-		return streamName;
+	@Column(name = "ROOM_NAME")
+	public String getRoomName() {
+		return roomName;
 	}
 
-	public void setName(String name) {
-		this.streamName = name;
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
 	}
 
-	public Date getPublishedDate() {
-		return publishedDate;
+	@OneToOne(cascade = CascadeType.PERSIST)
+	public Hotel getHotel() {
+		return hotel;
 	}
 
-	public void setPublishedDate(Date publishedDate) {
-		this.publishedDate = publishedDate;
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
-
 }

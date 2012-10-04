@@ -5,19 +5,19 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
-import com.hts.entities.Room;
+import com.hts.entities.IpAddress;
 import com.hts.exceptions.AppException;
 
-public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
+public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 	final Logger log = Logger.getLogger(this.getClass());
 
 	@Override
-	public Room create(Room room) throws AppException {
+	public IpAddress create(IpAddress ipAddress) throws AppException {
 		try {
 			begin();
-			getSession().save(room);
+			getSession().save(ipAddress);
 			commit();
-			return room;
+			return ipAddress;
 		} catch (HibernateException e) {
 			rollback();
 			log.error(e);
@@ -26,13 +26,13 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 	}
 
 	@Override
-	public Room getById(Integer id) throws AppException {
+	public IpAddress getById(Integer id) throws AppException {
 		try {
 			Query q = getSession().createQuery(
-					"from Room r where r.id= :id");
+					"from IpAddress r where r.id= :id");
 			q.setInteger("id", id);
-			Room room= (Room) q.uniqueResult();
-			return room;
+			IpAddress ipAddress = (IpAddress) q.uniqueResult();
+			return ipAddress;
 		} catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -40,10 +40,10 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 	}
 
 	@Override
-	public void save(Room room) throws AppException {
+	public void save(IpAddress ipAddress) throws AppException {
 		try {
 			begin();
-			getSession().update(room);
+			getSession().save(ipAddress);
 			commit();
 		} catch (HibernateException e) {
 			rollback();
@@ -53,10 +53,10 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 	}
 
 	@Override
-	public void delete(Room room) throws AppException {
+	public void delete(IpAddress ipAddress) throws AppException {
 		try {
 			begin();
-			getSession().delete(room);
+			getSession().delete(ipAddress);
 			commit();
 		} catch (HibernateException e) {
 			rollback();
@@ -67,11 +67,11 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Room> getAll() throws AppException {
+	public List<IpAddress> getAll() throws AppException {
 		try {
-			Query q = getSession().createQuery("from Room");
-			List<Room> rooms= q.list();
-			return rooms;
+			Query q = getSession().createQuery("from IpAddress");
+			List<IpAddress> ipAddress = q.list();
+			return ipAddress;
 		} catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -80,13 +80,13 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Room> getByName(String roomName) throws AppException {
+	public List<IpAddress> getByName(String ipAddress) throws AppException {
 		try {
 			Query q = getSession().createQuery(
-					"from Room r where r.roomName= :name");
-			q.setString("name", roomName);
-			List<Room> rooms= q.list();
-			return rooms;
+					"from IpAddress r where r.ipAddress= :ipAddress");
+			q.setString("ipAddress", ipAddress);
+			List<IpAddress> ipAddrs = q.list();
+			return ipAddrs;
 		} catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());

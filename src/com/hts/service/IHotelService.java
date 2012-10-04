@@ -12,4 +12,5 @@ public interface IHotelService {
 	Hotel getByUuId(Long uuid) throws AppException;
 	void delete(Hotel hotel) throws AppException;
 	List<Hotel> getByName(String name) throws AppException;
+	List<Hotel> getAll() throws AppException;
 }

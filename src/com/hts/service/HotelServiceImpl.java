@@ -45,4 +45,9 @@ public class HotelServiceImpl implements IHotelService {
 		return hotelDAO.getByName(name);
 	}
 
+	@Override
+	public List<Hotel> getAll() throws AppException {
+		return hotelDAO.getAll();
+	}
+
 }

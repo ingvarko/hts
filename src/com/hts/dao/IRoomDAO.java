@@ -1,19 +1,17 @@
 package com.hts.dao;
 
-import com.hts.entities.BroadcastStream;
-import com.hts.exceptions.AppException;
-
 import java.util.List;
 
+import com.hts.entities.Room;
+import com.hts.exceptions.AppException;
+
 public interface IRoomDAO {
-	BroadcastStream create(BroadcastStream stream) throws AppException;
-	BroadcastStream getById(Integer streamId) throws AppException;
-	List<BroadcastStream> getByName(String name) throws AppException;
-	void save(BroadcastStream stream) throws AppException;
-	void delete(BroadcastStream stream) throws AppException;	
-	
-	List<BroadcastStream> list() throws AppException;	
-	List<BroadcastStream > list(int firstResult, int maxResults) throws AppException;	
+	Room create(Room room) throws AppException;
+	Room getById(Integer Id) throws AppException;
+	void save(Room room) throws AppException;
+	void delete(Room room) throws AppException;
+	List<Room> getAll() throws AppException;
+	List<Room> getByName(String roomName) throws AppException;
 }
 
 

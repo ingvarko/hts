@@ -25,10 +25,10 @@ public class BroadcastStream {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "STREAM_ID")
+	@Column(name = "STREAM_ID", nullable = false)
 	private Integer id;
 
-	@Column(name = "STREAM_NAME")
+	@Column(name = "STREAM_NAME", nullable = false)
 	private String streamName;
 
 	@Column(name = "ACTIVE")

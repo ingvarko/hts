@@ -4,12 +4,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-
-//@Suite.SuiteClasses({
-//    JunitTest1.class,
-//    JunitTest2.class
-
-@Suite.SuiteClasses({BroadCastStreamTest.class,TestHotelService.class})
-
+@Suite.SuiteClasses({ TestBroadCastStreamService.class, TestHotelService.class,
+		TestIpAddressService.class,TestRoomService.class })
 public class AllTests {
 }

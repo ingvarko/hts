@@ -10,15 +10,16 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.hts.entities.Hotel;
+import com.hts.entities.Room;
 import com.hts.exceptions.AppException;
 import com.hts.service.HotelServiceImpl;
+import com.hts.service.RoomServiceImpl;
 
-public class TestHotelService {
-	public static HotelServiceImpl hotelService = new HotelServiceImpl();
-	final static String name = "testHotelService";
-	// at lease one hotel should be present
-	final static String myhotel = "My great hotel";
-	
+public class TestRoomService {
+	static RoomServiceImpl roomService = new RoomServiceImpl();
+	static HotelServiceImpl hotelService = new HotelServiceImpl();
+
+	final static String name = "testRoomService";
 
 	/**
 	 * @BeforeClass - oneTimeSetUp
@@ -36,14 +37,10 @@ public class TestHotelService {
 	 * methods are run after the tests are run. The only difference being that
 	 * the @Before and @After can be used for multiple methods in a class, but
 	 * the @BeforeClass and @AfterClass can be used only once per class.
-	 * @throws AppException 
 	 */
 
 	@BeforeClass
-	// there always must be a hotel in DB
-	public static void beforeClass() throws AppException {
-		if (hotelService.getAll().isEmpty())
-			hotelService.create(myhotel);
+	public static void beforeClass() {
 	}
 
 	@Before
@@ -56,28 +53,31 @@ public class TestHotelService {
 
 	@AfterClass
 	public static void afterClass() throws AppException {
-		List<Hotel> hotels = hotelService.getByName(name);
-		for (Hotel hotel : hotels)
-			hotelService.delete(hotel);
+		List<Room> rooms = roomService.getByName(name);
+		for (Room room : rooms)
+			roomService.delete(room);
+		for (Hotel h : hotelService.getByName(name))
+			hotelService.delete(h);
 	}
 
 	@Test
-	public void testCreateHotelService() throws AppException {
-		Hotel hotel = hotelService.create(name);
-		Assert.assertNotNull(hotel.getUuId());
+	public void testCreateRoomService() throws AppException {
+		Room room = roomService.create(name, hotelService.create(name));
+		Assert.assertNotNull(room.getId());
 	}
 
 	@Test
-	public void testGetHotelByName() throws AppException {
-		Hotel hotel = hotelService.create(name);
-		Assert.assertNotNull(hotel.getUuId());
-		List<Hotel> hotels = hotelService.getByName(name);
-		Assert.assertTrue(hotels.size() >= 1);
+	public void testGetRoomByName() throws AppException {
+		Room room = roomService.create(name);
+		Assert.assertNotNull(room.getId());
+		List<Room> rooms = roomService.getByName(name);
+		Assert.assertTrue(rooms.size() >= 1);
 	}
 
-	public static void main(String[] args) throws AppException {
-		TestHotelService test = new TestHotelService();
-		test.testGetHotelByName();
+	public static void main(String[] args) throws Exception {
+//		TestRoomService test = new TestRoomService();
+//		test.testGetRoomByName();
+//		NetworkServiceImpl.getAllIPsInLanNetwork();
 	}
 
 }

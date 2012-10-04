@@ -7,15 +7,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "HOTEL")
-public class Hotel {
+public class NetworkAddress {
 	private Long uuId;
 	private String hotelName;
 	private String hotelAddr;
 
-	public Hotel() {
+	public NetworkAddress() {
 	}
 
-	public Hotel(String name) {
+	public NetworkAddress(String name) {
 		this.setHotelName(name);
 	}
 
