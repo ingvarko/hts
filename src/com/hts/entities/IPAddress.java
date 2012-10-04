@@ -4,10 +4,12 @@ import java.net.UnknownHostException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,7 @@ public class IpAddress {
 
 	private Integer id;
 	private String ipAddress;
+	private Room room;
 
 	public IpAddress() {
 	}
@@ -57,12 +60,12 @@ public class IpAddress {
 		this.ipAddress = ipAddress;
 	}
 
-	// @OneToOne(cascade = CascadeType.PERSIST)
-	// public Hotel getHotel() {
-	// return hotel;
-	// }
-	//
-	// public void setHotel(Hotel hotel) {
-	// this.hotel = hotel;
-	// }
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 }

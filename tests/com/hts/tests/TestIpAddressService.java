@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.hts.entities.IpAddress;
 import com.hts.exceptions.AppException;
 import com.hts.service.IpAddressServiceImpl;
+import com.hts.service.RoomServiceImpl;
 
 public class TestIpAddressService {
 	static IpAddressServiceImpl ipAddressService = new IpAddressServiceImpl();
@@ -52,10 +53,14 @@ public class TestIpAddressService {
 
 	@AfterClass
 	public static void afterClass() throws AppException {
+		List<IpAddress> ipAddresses = ipAddressService.getByName(name);
+		for (IpAddress a : ipAddresses)
+			ipAddressService.delete(a);
 	}
 
 	@Test
-	public void testCreateIpAddressService() throws AppException, UnknownHostException {
+	public void testCreateIpAddressService() throws AppException,
+			UnknownHostException {
 		IpAddress ipAddress = ipAddressService.create(name);
 		Assert.assertNotNull(ipAddress.getId());
 	}
@@ -71,11 +76,33 @@ public class TestIpAddressService {
 	}
 
 	@Test
-	public void testGetIpAddressByName() throws AppException, UnknownHostException {
+	public void testGetIpAddressByName() throws AppException,
+			UnknownHostException {
 		IpAddress ipAddress = ipAddressService.create(name);
 		Assert.assertNotNull(ipAddress.getId());
 		List<IpAddress> ipAddresss = ipAddressService.getByName(name);
 		Assert.assertTrue(ipAddresss.size() >= 1);
+	}
+
+	@Test
+	public void testManyToOne() throws AppException, UnknownHostException {
+		IpAddress ipAddress = ipAddressService.create(name);
+
+		String roomName = "TestManyToMany";
+		RoomServiceImpl roomServiceImpl = new RoomServiceImpl();
+
+		ipAddress.setRoom(roomServiceImpl.create(roomName));
+		ipAddressService.update(ipAddress);
+		ipAddressService.update(ipAddress);
+
+		Assert.assertNotNull(ipAddress.getId());
+		List<IpAddress> ipAddresss = ipAddressService.getByName(name);
+		Assert.assertTrue(ipAddresss.size() >= 1);
+
+		ipAddressService.delete(ipAddress);
+		while (!roomServiceImpl.getByName(roomName).isEmpty())
+			roomServiceImpl.delete(roomServiceImpl.getByName(roomName).get(0));
+
 	}
 
 	public static void main(String[] args) throws Exception {

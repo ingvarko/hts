@@ -15,7 +15,7 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 	BroadcastStreamDAOHibernateImpl serviceDAO = new BroadcastStreamDAOHibernateImpl();
 
 	@Override
-	public BroadcastStream registerBroadcastStream(String name)
+	public BroadcastStream create (String name)
 			throws AppException {
 
 		BroadcastStream stream = new BroadcastStream(name);
@@ -27,6 +27,15 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 		DAO.close();
 		log.info("registerBroadcastStream:" + stream);
 		return stream;
+	}
+
+	@Override
+	public void delete (BroadcastStream broadcastStream)
+			throws AppException {
+
+		serviceDAO.delete(broadcastStream);
+		DAO.close();
+		log.info("deleted BroadcastStream:" + broadcastStream.getName());
 	}
 
 	/**
@@ -43,7 +52,7 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 			str.setUnpublishedDate(new Date());
 			str.setStatus(BroadcastStream.INACTIVE);
 
-			serviceDAO.save(str);
+			serviceDAO.update(str);
 		}
 		//reloading from DB
 		stream = serviceDAO.getById(stream.getId());
@@ -62,9 +71,15 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 	}
 
 	@Override
-	public BroadcastStream getBroadcastStream(Integer streamId)
+	public BroadcastStream getById(Integer streamId)
 			throws AppException {
 		return serviceDAO.getById(streamId);
+	}
+
+	@Override
+	public List<BroadcastStream> getByName(String name)
+			throws AppException {
+		return serviceDAO.getByName(name);
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class RoomServiceImpl implements IRoomService {
 
 	@Override
 	public void update(Room room) throws AppException {
-		roomDAO.save(room);
+		roomDAO.update(room);
 		DAO.close();
 		log.info("updated room: " + room);
 	}

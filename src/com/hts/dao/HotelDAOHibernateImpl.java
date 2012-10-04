@@ -72,7 +72,7 @@ public class HotelDAOHibernateImpl extends DAO implements IHotelDAO {
 
 	@Override
 	//update
-	public void save(Hotel hotel) throws AppException {
+	public void update(Hotel hotel) throws AppException {
 		// TODO throw exception if uuId is empty
 		try {
 //			begin();

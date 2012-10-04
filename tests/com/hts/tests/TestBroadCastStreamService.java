@@ -1,5 +1,7 @@
 package com.hts.tests;
 
+import java.util.List;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -8,14 +10,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.hts.entities.BroadcastStream;
+import com.hts.entities.Room;
 import com.hts.exceptions.AppException;
 import com.hts.service.BroadcastStreamServiceImpl;
 
 
 public class TestBroadCastStreamService {
-	BroadcastStreamServiceImpl broadcastStreamService = new BroadcastStreamServiceImpl();
-	// BroadcastStreamService name
-	String name = "testCreateBroadcastStreamService";
+	static BroadcastStreamServiceImpl broadcastStreamService = new BroadcastStreamServiceImpl();
+	static String name = "testCreateBroadcastStreamService";
 
 
 	/**
@@ -49,7 +51,10 @@ public class TestBroadCastStreamService {
 	}
 
 	@AfterClass
-	public static void afterClass() {
+	public static void afterClass() throws AppException {
+		List<BroadcastStream> broadcastStreams =  broadcastStreamService.getByName(name);
+		for (BroadcastStream broadcastStream : broadcastStreams)
+			broadcastStreamService.delete(broadcastStream);
 	}
 
 	// getAllBroadcastStreams()
@@ -58,14 +63,14 @@ public class TestBroadCastStreamService {
 	@Test
 	public void testRegisterBroadcastStreamService() throws AppException {
 		BroadcastStream stream = broadcastStreamService
-				.registerBroadcastStream(name);
+				.create(name);
 		Assert.assertNotNull(stream.getId());
 	}
 
 	@Test
 	public void testUnregisterBroadcastStreamService() throws AppException {
 		BroadcastStream stream = broadcastStreamService
-				.registerBroadcastStream(name);
+				.create(name);
 		Assert.assertTrue(stream.isActive());
 
 		stream = broadcastStreamService

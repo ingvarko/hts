@@ -23,7 +23,7 @@ public class HotelServiceImpl implements IHotelService {
 
 	@Override
 	public void update(Hotel hotel) throws AppException {
-		hotelDAO.save(hotel);
+		hotelDAO.update(hotel);
 		DAO.close();
 		log.info("updated hotel: " + hotel);
 	}

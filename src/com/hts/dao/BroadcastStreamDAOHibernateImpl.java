@@ -60,7 +60,7 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	/**
 	 * During saving sets @UpdateDate to new Date(); automatically.
 	 */
-	public void save(BroadcastStream stream) throws AppException {
+	public void update(BroadcastStream stream) throws AppException {
 		try {
 			begin();
 			stream.setUpdateDate(new Date());

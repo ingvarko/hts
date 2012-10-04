@@ -40,7 +40,7 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 	}
 
 	@Override
-	public void save(Room room) throws AppException {
+	public void update(Room room) throws AppException {
 		try {
 			begin();
 			getSession().update(room);

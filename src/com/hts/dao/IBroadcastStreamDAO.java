@@ -9,7 +9,7 @@ public interface IBroadcastStreamDAO {
 	BroadcastStream create(BroadcastStream stream) throws AppException;
 	BroadcastStream getById(Integer streamId) throws AppException;
 	List<BroadcastStream> getByName(String name) throws AppException;
-	void save(BroadcastStream stream) throws AppException;
+	void update(BroadcastStream stream) throws AppException;
 	void delete(BroadcastStream stream) throws AppException;	
 	
 	List<BroadcastStream> getAll() throws AppException;	

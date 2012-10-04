@@ -24,7 +24,7 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 			throw new AppException(e.getCause().getMessage());
 		}
 	}
-
+	
 	@Override
 	public IpAddress getById(Integer id) throws AppException {
 		try {
@@ -40,10 +40,10 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 	}
 
 	@Override
-	public void save(IpAddress ipAddress) throws AppException {
+	public void update(IpAddress ipAddress) throws AppException {
 		try {
 			begin();
-			getSession().save(ipAddress);
+			getSession().update(ipAddress);
 			commit();
 		} catch (HibernateException e) {
 			rollback();
@@ -55,8 +55,11 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 	@Override
 	public void delete(IpAddress ipAddress) throws AppException {
 		try {
+//			getSession().flush();
 			begin();
-			getSession().delete(ipAddress);
+			IpAddress ipAddress1= (IpAddress) getSession().merge(ipAddress);
+			
+			getSession().delete(ipAddress1);
 			commit();
 		} catch (HibernateException e) {
 			rollback();

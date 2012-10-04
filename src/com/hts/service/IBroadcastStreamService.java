@@ -7,10 +7,11 @@ import com.hts.exceptions.AppException;
 
 public interface IBroadcastStreamService {
 
-	BroadcastStream registerBroadcastStream(String name) throws AppException;
+	BroadcastStream create(String name) throws AppException;
 	BroadcastStream unregisterBroadcastStream(BroadcastStream stream) throws AppException;
 	List<BroadcastStream> getAllBroadcastStreams() throws AppException;
-	BroadcastStream getBroadcastStream(Integer streamId) throws AppException;
+	BroadcastStream getById(Integer streamId) throws AppException;
+	void delete(BroadcastStream broadcastStream) throws AppException;
 
 	//
 	void allowRoomAccess() throws AppException;
@@ -19,4 +20,5 @@ public interface IBroadcastStreamService {
 	//
 	void connectRoom() throws AppException;
 	void disconnectRoom()throws AppException;
+	List<BroadcastStream> getByName(String name) throws AppException;
 }

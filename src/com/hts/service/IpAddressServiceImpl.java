@@ -16,7 +16,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 
 	@Override
 	public void update(IpAddress ipAddress) throws AppException {
-		ipAddressDAO.save(ipAddress);
+		ipAddressDAO.update(ipAddress);
 		DAO.close();
 		log.info("updated ipAddress: " + ipAddress);
 
@@ -26,7 +26,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 	public void delete(IpAddress ipAddress) throws AppException {
 		ipAddressDAO.delete(ipAddress);
 		DAO.close();
-		log.info("deleted ipAddress: " + ipAddress);
+		log.info("deleted ipAddress: " + ipAddress.getIpAddress());
 
 	}
 
@@ -45,7 +45,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 		
 		IpAddress ipAddress = new IpAddress(name);
 		
-		ipAddressDAO.save(ipAddress);
+		ipAddressDAO.create(ipAddress);
 		DAO.close();
 		log.info("updated ipAddress: " + ipAddress.getIpAddress());
 		return ipAddress;

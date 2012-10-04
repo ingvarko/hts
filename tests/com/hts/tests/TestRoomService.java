@@ -58,6 +58,11 @@ public class TestRoomService {
 			roomService.delete(room);
 		for (Hotel h : hotelService.getByName(name))
 			hotelService.delete(h);
+
+		rooms = roomService.getByName("TestManyToMany");
+		for (Room room : rooms)
+			roomService.delete(room);
+		
 	}
 
 	@Test
