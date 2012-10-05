@@ -37,7 +37,12 @@
    		<servlet-name>SecurityTest</servlet-name>
    		<servlet-class>org.red5.demos.oflaDemo.SecurityTest</servlet-class>
    	</servlet>
-    
+ 	<servlet>
+   		<display-name>JsonService</display-name>
+   		<servlet-name>JsonService</servlet-name>
+   		<servlet-class>org.red5.demos.oflaDemo.JsonService</servlet-class>
+   	</servlet>
+      
 	<servlet-mapping>
 		<servlet-name>rtmpt</servlet-name>
 		<url-pattern>/fcs/*</url-pattern>
@@ -66,6 +71,10 @@
 	<servlet-mapping>
 		<servlet-name>SecurityTest</servlet-name>
 		<url-pattern>/securitytest</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JsonService</servlet-name>
+		<url-pattern>/JsonService</url-pattern>
 	</servlet-mapping>
     
     <security-constraint>

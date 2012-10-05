@@ -50,5 +50,6 @@
 	<classpathentry kind="lib" path="C:/Program Files/Red5/boot.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/log4j"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/junit"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/json"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
