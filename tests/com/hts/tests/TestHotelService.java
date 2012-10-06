@@ -65,6 +65,7 @@ public class TestHotelService {
 	public void testCreateHotelService() throws AppException {
 		Hotel hotel = hotelService.create(name);
 		Assert.assertNotNull(hotel.getUuId());
+		System.out.print(hotelService.getJson(hotelService.getAll(), "0"));
 	}
 
 	@Test
@@ -73,6 +74,7 @@ public class TestHotelService {
 		Assert.assertNotNull(hotel.getUuId());
 		List<Hotel> hotels = hotelService.getByName(name);
 		Assert.assertTrue(hotels.size() >= 1);
+		System.out.print(hotels.get(0).getJson());
 	}
 
 	public static void main(String[] args) throws AppException {
