@@ -27,7 +27,10 @@
 		<mapping class="com.hts.entities.BroadcastStream" />
 		<mapping class="com.hts.entities.Hotel" />
 		<mapping class="com.hts.entities.Room" />
-		<mapping class="com.hts.entities.IpAddress" />
+		<mapping class="com.hts.entities.IpAddress"/>
+		<mapping class="com.hts.entities.Channel"/>
+		<mapping class="com.hts.entities.SubscriptionPackage"/>
+        		
 	</session-factory>
 
 </hibernate-configuration>

@@ -1,14 +1,18 @@
 package com.hts.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import com.hts.dao.DAO;
 import com.hts.dao.HotelDAOHibernateImpl;
 import com.hts.dao.RoomDAOHibernateImpl;
+import com.hts.entities.Channel;
 import com.hts.entities.Hotel;
 import com.hts.entities.Room;
+import com.hts.entities.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public class RoomServiceImpl implements IRoomService {
@@ -62,6 +66,27 @@ public class RoomServiceImpl implements IRoomService {
 	@Override
 	public Room getById(Integer id) throws AppException {
 		return roomDAO.getById(id);
+	}
+
+	@Override
+	public void addSubscriptionPackage(Room room, SubscriptionPackage subscriptionPackage)
+			throws AppException {
+
+		room.setSubscriptionPackage(subscriptionPackage);
+		
+		roomDAO.update(room);
+		log.info("added subscriptionPackage to room: " + room.toString());
+		
+	}
+
+	@Override
+	public void removeSubscriptionPackage(Room room)
+			throws AppException {
+		room.setSubscriptionPackage(null);
+		
+		roomDAO.update(room);
+		log.info("removed subscriptionPackage from room: " + room.toString());
+		
 	}
 
 }

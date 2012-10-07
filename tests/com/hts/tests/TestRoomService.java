@@ -9,8 +9,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.hts.dao.SubscriptionPackageDAOHibernateImpl;
 import com.hts.entities.Hotel;
 import com.hts.entities.Room;
+import com.hts.entities.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 import com.hts.service.HotelServiceImpl;
 import com.hts.service.RoomServiceImpl;
@@ -69,6 +71,13 @@ public class TestRoomService {
 	public void testCreateRoomService() throws AppException {
 		Room room = roomService.create(name, hotelService.create(name));
 		Assert.assertNotNull(room.getId());
+
+		SubscriptionPackage subscriptionPackage = new SubscriptionPackage(name);
+		room.setSubscriptionPackage(subscriptionPackage);
+		roomService.update(room);
+		Assert.assertNotNull(room.getId());
+		roomService.removeSubscriptionPackage(room);
+		new SubscriptionPackageDAOHibernateImpl().delete(subscriptionPackage);
 	}
 
 	@Test

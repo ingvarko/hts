@@ -24,7 +24,7 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 			throw new AppException(e.getCause().getMessage());
 		}
 	}
-	
+
 	@Override
 	public IpAddress getById(Integer id) throws AppException {
 		try {
@@ -55,10 +55,8 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 	@Override
 	public void delete(IpAddress ipAddress) throws AppException {
 		try {
-//			getSession().flush();
 			begin();
-			IpAddress ipAddress1= (IpAddress) getSession().merge(ipAddress);
-			
+			IpAddress ipAddress1 = (IpAddress) getSession().merge(ipAddress);
 			getSession().delete(ipAddress1);
 			commit();
 		} catch (HibernateException e) {
@@ -83,13 +81,12 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<IpAddress> getByName(String ipAddress) throws AppException {
+	public List<IpAddress> getByIp(String ipAddress) throws AppException {
 		try {
 			Query q = getSession().createQuery(
 					"from IpAddress r where r.ipAddress= :ipAddress");
 			q.setString("ipAddress", ipAddress);
-			List<IpAddress> ipAddrs = q.list();
-			return ipAddrs;
+			return  q.list();
 		} catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());

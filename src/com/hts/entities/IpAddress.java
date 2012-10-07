@@ -51,7 +51,7 @@ public class IpAddress {
 		this.id = id;
 	}
 
-	@Column(name = "ADDRESS")
+	@Column(name = "ADDRESS", unique = true)
 	public String getIpAddress() {
 		return ipAddress;
 	}

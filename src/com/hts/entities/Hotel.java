@@ -11,8 +11,6 @@ import javax.persistence.Transient;
 
 import net.sf.json.JSONObject;
 
-import com.hts.service.IJsonService;
-
 @Entity
 @Table(name = "HOTEL")
 public class Hotel {

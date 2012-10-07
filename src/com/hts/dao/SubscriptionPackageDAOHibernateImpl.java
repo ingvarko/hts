@@ -1,0 +1,99 @@
+package com.hts.dao;
+
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+
+import com.hts.entities.SubscriptionPackage;
+import com.hts.exceptions.AppException;
+
+public class SubscriptionPackageDAOHibernateImpl extends DAO implements ISubscriptionPackageDAO {
+	final Logger log = Logger.getLogger(this.getClass());
+
+	@Override
+	public SubscriptionPackage create(SubscriptionPackage subscriptionPackage ) throws AppException {
+		try {
+			begin();
+			getSession().save(subscriptionPackage );
+			commit();
+			return subscriptionPackage ;
+		} catch (HibernateException e) {
+			rollback();
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SubscriptionPackage> getAll() throws AppException {
+		
+		try {
+			Query q = getSession().createQuery(
+					"from SubscriptionPackage h");
+			List<SubscriptionPackage> subscriptionPackages= q.list();
+			return subscriptionPackages;
+		} catch (HibernateException e) {
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+	}
+	
+	@Override
+	public SubscriptionPackage getById(Integer id) throws AppException {
+		try {
+			Query q = getSession().createQuery(
+					"from SubscriptionPackage h where h.Id= :id");
+			q.setLong("id", id);
+			SubscriptionPackage subscriptionPackage = (SubscriptionPackage) q.uniqueResult();
+			return subscriptionPackage ;
+		} catch (HibernateException e) {
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+	}
+
+	@Override
+	//update
+	public void update(SubscriptionPackage subscriptionPackage ) throws AppException {
+		try {
+			begin();
+			getSession().update(subscriptionPackage );
+			commit();
+		} catch (HibernateException e) {
+			rollback();
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+
+	}
+
+	@Override
+	public void delete(SubscriptionPackage subscriptionPackage ) throws AppException {
+		try {
+			begin();
+			getSession().delete(subscriptionPackage );
+			commit();
+		} catch (HibernateException e) {
+			rollback();
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<SubscriptionPackage> getByName(String name) throws AppException {
+		try {
+			Query q = getSession().createQuery(
+					"from SubscriptionPackage h where h.subscriptionPackageName= :name");
+			q.setString("name", name);
+			List<SubscriptionPackage> subscriptionPackages = q.list();
+			return subscriptionPackages ;
+		} catch (HibernateException e) {
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+	}
+}

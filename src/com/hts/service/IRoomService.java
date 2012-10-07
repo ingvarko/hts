@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hts.entities.Hotel;
 import com.hts.entities.Room;
+import com.hts.entities.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public interface IRoomService {
@@ -14,4 +15,8 @@ public interface IRoomService {
 	List<Room> getByName(String name) throws AppException;
 	Room create(String name, Hotel hotel) throws AppException;
 	Room create(String name) throws AppException;
+	
+	void addSubscriptionPackage(Room room, SubscriptionPackage subscriptionPackage)throws AppException;
+	void removeSubscriptionPackage(Room room)throws AppException;
+	
 }

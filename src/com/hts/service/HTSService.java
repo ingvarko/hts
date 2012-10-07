@@ -6,6 +6,6 @@ public class HTSService {
 
 	public static boolean isConnectionValid(IConnection conn) {
 
-		return true;
+		return false;
 	}
 }

@@ -1,7 +1,12 @@
 package com.hts.tests;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -10,21 +15,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.hts.entities.Channel;
 import com.hts.entities.IpAddress;
+import com.hts.entities.Room;
+import com.hts.entities.SubscriptionPackage;
 import com.hts.exceptions.AppException;
+import com.hts.service.ChannelServiceImpl;
 import com.hts.service.IpAddressServiceImpl;
 import com.hts.service.RoomServiceImpl;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
- 
-import net.sf.json.JSONObject;
+import com.hts.service.SubscriptionPackageServiceImpl;
 
 public class TestIpAddressService {
 	static IpAddressServiceImpl ipAddressService = new IpAddressServiceImpl();
@@ -55,7 +54,16 @@ public class TestIpAddressService {
 	}
 
 	@Before
-	public void setup() {
+	public void setup() throws AppException {
+		String name = "222.222.222.222";
+		List<IpAddress> ipAddresses = ipAddressService.getByIp(name);
+		for (IpAddress IpAddi : ipAddresses)
+			ipAddressService.delete(IpAddi);
+
+		name = "111.111.111.111";
+		ipAddresses = ipAddressService.getByIp(name);
+		for (IpAddress IpAddi : ipAddresses)
+			ipAddressService.delete(IpAddi);
 	}
 
 	@After
@@ -64,9 +72,9 @@ public class TestIpAddressService {
 
 	@AfterClass
 	public static void afterClass() throws AppException {
-		List<IpAddress> ipAddresses = ipAddressService.getByName(name);
-		for (IpAddress a : ipAddresses)
-			ipAddressService.delete(a);
+		List<IpAddress> ipAddresses = ipAddressService.getByIp(name);
+		for (IpAddress IpAddi : ipAddresses)
+			ipAddressService.delete(IpAddi);
 	}
 
 	@Test
@@ -91,8 +99,81 @@ public class TestIpAddressService {
 			UnknownHostException {
 		IpAddress ipAddress = ipAddressService.create(name);
 		Assert.assertNotNull(ipAddress.getId());
-		List<IpAddress> ipAddresss = ipAddressService.getByName(name);
-		Assert.assertTrue(ipAddresss.size() >= 1);
+		List<IpAddress> ipAddresss = ipAddressService.getByIp(name);
+		Assert.assertNotNull(ipAddresss.get(0));
+	}
+
+	@Test
+	public void testIsBroadcastStreamAllowedForIP() throws AppException,
+			UnknownHostException {
+
+		// Begin of clean up
+		// --------------------------------------------------------
+		RoomServiceImpl roomServiceImpl = new RoomServiceImpl();
+		ChannelServiceImpl channelServiceImpl = new ChannelServiceImpl();
+		SubscriptionPackageServiceImpl subscriptionPackageServiceImpl = new SubscriptionPackageServiceImpl();
+
+		List<IpAddress> ipAddresses = ipAddressService
+				.getByIp("222.222.222.222");
+		for (IpAddress IpAddi : ipAddresses)
+			ipAddressService.delete(IpAddi);
+
+		List<Room> rooms = roomServiceImpl.getByName("222.222.222.222");
+		for (Room r : rooms)
+			roomServiceImpl.delete(r);
+
+		List<Channel> ss = channelServiceImpl.getByName("222.222.222.222");
+		for (Channel s : ss)
+			channelServiceImpl.delete(s);
+
+		List<SubscriptionPackage> subscriptionPackages = subscriptionPackageServiceImpl
+				.getByName("222.222.222.222");
+		for (SubscriptionPackage subscriptionPackage : subscriptionPackages) {
+			subscriptionPackage.setChannels(null);
+			subscriptionPackageServiceImpl.update(subscriptionPackage);
+			subscriptionPackageServiceImpl.delete(subscriptionPackage);
+		}
+
+		// End of clean up
+		// ----------------------------------------------------------------------------
+
+		Room room = roomServiceImpl.create("222.222.222.222");
+
+		IpAddress ipAddress = ipAddressService.create("222.222.222.222");
+		ipAddress.setRoom(room);
+		ipAddressService.update(ipAddress);
+
+		Channel channel = channelServiceImpl.create("222.222.222.222",
+				"222.222.222.222");
+
+		SubscriptionPackage subscriptionPackage = subscriptionPackageServiceImpl
+				.create("222.222.222.222");
+
+		ArrayList<Channel> channels = new ArrayList<Channel>();
+		channels.add(channel);
+		subscriptionPackage.setChannels(channels);
+
+		subscriptionPackageServiceImpl.update(subscriptionPackage);
+
+		room.setSubscriptionPackage(subscriptionPackage);
+		roomServiceImpl.update(room);
+
+		if (ipAddressService.isBroadcastStreamAllowedForIP("222.222.222.222",
+				"222.222.222.222"))
+			Assert.assertTrue(true);
+		else
+			Assert.assertTrue(false);
+		//
+		// List<Channel> chs = ipAddress.getRoom().getSubscriptionPackage()
+		// .getChannels();
+		// channel = channelServiceImpl.getByBroadcastName("222.222.222.222");
+		// for (Channel ch : chs) {
+		// if (ch.getId().equals(channel.getId()))
+		// Assert.assertTrue(true);
+		// return;
+		// }
+		//
+		// Assert.assertTrue(false);
 	}
 
 	@Test
@@ -104,11 +185,8 @@ public class TestIpAddressService {
 
 		ipAddress.setRoom(roomServiceImpl.create(roomName));
 		ipAddressService.update(ipAddress);
-		ipAddressService.update(ipAddress);
 
 		Assert.assertNotNull(ipAddress.getId());
-		List<IpAddress> ipAddresss = ipAddressService.getByName(name);
-		Assert.assertTrue(ipAddresss.size() >= 1);
 
 		ipAddressService.delete(ipAddress);
 		while (!roomServiceImpl.getByName(roomName).isEmpty())
@@ -117,24 +195,23 @@ public class TestIpAddressService {
 	}
 
 	public static void main(String[] args) throws Exception {
-        Map<String, Long> map = new HashMap<String, Long>();
-        map.put("A", 10L);
-        map.put("B", 20L);
-        map.put("C", 30L);
-         
-        JSONObject json = new JSONObject();
-        json.accumulateAll(map);
-         
-        System.out.println(json.toString());
- 
-         
-        List<String> list = new ArrayList<String>();
-        list.add("Sunday");
-        list.add("Monday");
-        list.add("Tuesday");
-         
-        json.accumulate("weekdays", list);
-        System.out.println(json.toString());
+		Map<String, Long> map = new HashMap<String, Long>();
+		map.put("A", 10L);
+		map.put("B", 20L);
+		map.put("C", 30L);
+
+		JSONObject json = new JSONObject();
+		json.accumulateAll(map);
+
+		System.out.println(json.toString());
+
+		List<String> list = new ArrayList<String>();
+		list.add("Sunday");
+		list.add("Monday");
+		list.add("Tuesday");
+
+		json.accumulate("weekdays", list);
+		System.out.println(json.toString());
 	}
 
 }

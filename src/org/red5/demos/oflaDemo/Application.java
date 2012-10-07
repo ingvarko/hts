@@ -35,8 +35,12 @@ public class Application extends ApplicationAdapter {
 	public boolean appConnect(IConnection conn, Object[] params) {
 		log.info("oflaDemo appConnect");
 		log.info(conn.toString());
-		if (HTSService.isConnectionValid (conn)) 
+		if (HTSService.isConnectionValid (conn)){ 
+			log.info("Connection from XXX valid. Connecting Room");
 			return super.appConnect(conn, params);
+		}
+		log.info("Connection from XXX invalid. Disconnecting Room XXX");
+		conn.close();
 		return false;
 		
 		// Trigger calling of "onBWDone", required for some FLV players

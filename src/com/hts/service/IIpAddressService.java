@@ -11,6 +11,10 @@ public interface IIpAddressService {
 	void update(IpAddress ipAddress) throws AppException;
 	IpAddress getById(Integer uuid) throws AppException;
 	void delete(IpAddress ipAddress) throws AppException;
-	List<IpAddress> getByName(String name) throws AppException;
+	List<IpAddress> getByIp(String name) throws AppException;
 	IpAddress create(String name) throws UnknownHostException, AppException;
+	
+	boolean isBroadcastStreamAllowedForIP(String ipAddress,
+			String broadcastStreamName) throws UnknownHostException,
+			AppException;
 }
