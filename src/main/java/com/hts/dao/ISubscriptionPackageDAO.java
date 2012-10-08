@@ -10,7 +10,7 @@ public interface ISubscriptionPackageDAO {
 	SubscriptionPackage getById(Integer id) throws AppException;
 	
 	void update(SubscriptionPackage subscriptionPackage) throws AppException;
-	void delete(SubscriptionPackage subscriptionPackage) throws AppException;
+	void delete(SubscriptionPackage subscriptionPackage) throws AppException;
 	List<SubscriptionPackage> getAll() throws AppException;
 	
 }

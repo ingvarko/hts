@@ -11,7 +11,7 @@ public interface IIpAddressDAO {
 	
 	IpAddress getById(Integer Id) throws AppException;
 	void update(IpAddress ipAddress) throws AppException;
-	void delete(IpAddress ipAddress) throws AppException;
+	void delete(IpAddress ipAddress) throws AppException;
 	List<IpAddress> getAll() throws AppException;
 	List<IpAddress> getByIp(String ipAddress) throws AppException;
 }

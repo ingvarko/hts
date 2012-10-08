@@ -9,7 +9,7 @@ public interface IRoomDAO {
 	Room create(Room room) throws AppException;
 	Room getById(Integer Id) throws AppException;
 	void update(Room room) throws AppException;
-	void delete(Room room) throws AppException;
+	void delete(Room room) throws AppException;
 	List<Room> getAll() throws AppException;
 	List<Room> getByName(String roomName) throws AppException;
 }
