@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/tests"/>
 	<classpathentry kind="lib" path="lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="lib/bcprov-jdk16-145.jar"/>
 	<classpathentry kind="lib" path="lib/com.springsource.javax.xml.stream-1.0.1.jar"/>
