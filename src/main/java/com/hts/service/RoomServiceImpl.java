@@ -1,15 +1,11 @@
 package com.hts.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.apache.log4j.Logger;
 
 import com.hts.dao.DAO;
 import com.hts.dao.HotelDAOHibernateImpl;
 import com.hts.dao.RoomDAOHibernateImpl;
-import com.hts.entities.Channel;
 import com.hts.entities.Hotel;
 import com.hts.entities.Room;
 import com.hts.entities.SubscriptionPackage;
