@@ -67,6 +67,12 @@
 		<servlet-name>SecurityTest</servlet-name>
 		<url-pattern>/securitytest</url-pattern>
 	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>JsonService</servlet-name>
+		<url-pattern>/JsonService</url-pattern>
+	</servlet-mapping>
+
     
     <security-constraint>
         <web-resource-collection>
