@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.red5.logging.Red5LoggerFactory;
 import org.red5.server.api.Red5;
-import org.red5.server.api.IScope;
+import org.red5.server.api.scope.IScope;
 import org.slf4j.Logger;
 import org.springframework.core.io.Resource;
 

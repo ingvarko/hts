@@ -2,13 +2,8 @@ package org.red5.demos.oflaDemo;
 
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
-import org.red5.server.api.IScope;
+import org.red5.server.api.scope.IScope;
 import org.red5.server.api.stream.IServerStream;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
-
-import com.hts.service.HTSService;
 
 public class Application extends ApplicationAdapter {
 
@@ -16,14 +11,10 @@ public class Application extends ApplicationAdapter {
 
 	private IServerStream serverStream;
 	
-	static Logger log= Logger.getLogger(Application.class);
-	
 	/** {@inheritDoc} */
     @Override
 	public boolean appStart(IScope app) {
 	    super.appStart(app);
-	    DOMConfigurator.configure("log4j.xml");
-	    
 		log.info("oflaDemo appStart");
 		System.out.println("oflaDemo appStart");    	
 		appScope = app;
@@ -34,15 +25,6 @@ public class Application extends ApplicationAdapter {
     @Override
 	public boolean appConnect(IConnection conn, Object[] params) {
 		log.info("oflaDemo appConnect");
-		log.info(conn.toString());
-		if (HTSService.isConnectionValid (conn)){ 
-			log.info("Connection from XXX valid. Connecting Room");
-			return super.appConnect(conn, params);
-		}
-		log.info("Connection from XXX invalid. Disconnecting Room XXX");
-		conn.close();
-		return false;
-		
 		// Trigger calling of "onBWDone", required for some FLV players
 		
 		// commenting out the bandwidth code as it is replaced by the mina filters
@@ -76,14 +58,13 @@ public class Application extends ApplicationAdapter {
 //			} catch (Exception e) {}
 //		}
 		 
-		
+		return super.appConnect(conn, params);
 	}
 
 	/** {@inheritDoc} */
     @Override
 	public void appDisconnect(IConnection conn) {
-		log.info("oflaDemo appDisconnect"); 
-		
+		log.info("oflaDemo appDisconnect");
 		if (appScope == conn.getScope() && serverStream != null) {
 			serverStream.close();
 		}
