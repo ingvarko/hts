@@ -62,7 +62,7 @@
 	<classpathentry kind="lib" path="lib/spring-expression-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/spring-web-3.1.1.RELEASE.jar"/>
 	<classpathentry kind="lib" path="lib/xmlrpc-2.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/red5.jar" />
+	<classpathentry kind="lib" path="lib/red5.jar" sourcepath="D:/Red5/red5-1.0.0-RC2/src.zip"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

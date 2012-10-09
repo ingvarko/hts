@@ -63,7 +63,9 @@ public class IpAddressServiceImpl implements IIpAddressService {
 	public boolean isBroadcastStreamAllowedForIP(String ipAddress,
 			String broadcastStreamName) throws UnknownHostException,
 			AppException {
-
+		log.info("calling isBroadcastStreamAllowedForIP("+ipAddress+","+
+			broadcastStreamName+");");
+		
 		List<IpAddress> ipAddresses = ipAddressDAO.getByIp(ipAddress);
 		if (ipAddresses.size()==0)
 			return false;

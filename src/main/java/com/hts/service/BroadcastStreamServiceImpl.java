@@ -12,7 +12,7 @@ import com.hts.exceptions.AppException;
 
 public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 	final Logger log = Logger.getLogger(this.getClass());
-	BroadcastStreamDAOHibernateImpl serviceDAO = new BroadcastStreamDAOHibernateImpl();
+	static BroadcastStreamDAOHibernateImpl serviceDAO = new BroadcastStreamDAOHibernateImpl();
 
 	@Override
 	public BroadcastStream create (String name)
@@ -43,9 +43,9 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 	 * Set in all streams @unpublishedDate to new Date() and @status to inactive.
 	 */
 	@Override
-	public BroadcastStream  unregisterBroadcastStream(BroadcastStream stream)
+	public void  unregisterBroadcastStream(String broadcastStreamName)
 			throws AppException {
-		List <BroadcastStream> list = serviceDAO.getByName(stream.getName());
+		List <BroadcastStream> list = serviceDAO.getByName(broadcastStreamName);
 		
 		for (BroadcastStream str : list) {
 			str.setUpdateDate(new Date());
@@ -54,12 +54,9 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 
 			serviceDAO.update(str);
 		}
-		//reloading from DB
-		stream = serviceDAO.getById(stream.getId());
 		
 		DAO.close();
-		log.info("unregisterBroadcastStream:" + stream);
-		return stream;
+		log.info("unregisterBroadcastStream:" + broadcastStreamName);
 	}
 
 	@Override
