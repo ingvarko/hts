@@ -13,7 +13,8 @@ public interface IBroadcastStreamDAO {
 	void delete(BroadcastStream stream) throws AppException;	
 	
 	List<BroadcastStream> getAll() throws AppException;	
-	List<BroadcastStream > list(int firstResult, int maxResults) throws AppException;	
+	List<BroadcastStream > list(int firstResult, int maxResults) throws AppException;
+	List<BroadcastStream> getActiveByName(String name) throws AppException;
 }
 
 

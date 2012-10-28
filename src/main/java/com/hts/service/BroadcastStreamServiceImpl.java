@@ -45,7 +45,7 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 	@Override
 	public void  unregisterBroadcastStream(String broadcastStreamName)
 			throws AppException {
-		List <BroadcastStream> list = serviceDAO.getByName(broadcastStreamName);
+		List <BroadcastStream> list = serviceDAO.getActiveByName(broadcastStreamName);
 		
 		for (BroadcastStream str : list) {
 			str.setUpdateDate(new Date());

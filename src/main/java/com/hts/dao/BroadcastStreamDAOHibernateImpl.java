@@ -134,4 +134,20 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 			throw new AppException(e.getCause().getMessage());
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BroadcastStream> getActiveByName(String name) throws AppException {
+		try {
+			Query q =getSession().createQuery("from BroadcastStream s where s.streamName= :sname and s.isActive=true");
+			q.setString("sname", name.toString());
+			List<BroadcastStream> list = q.list();
+
+			// System.out.println(list.size());
+			return list;
+		} catch (HibernateException e) {
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+	}
 }
