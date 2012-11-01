@@ -26,6 +26,7 @@ public class Application extends ApplicationAdapter {
 		BroadcastStreamServiceImpl broadcastStreamServiceImpl = new BroadcastStreamServiceImpl();
 		try {
 			broadcastStreamServiceImpl.create(stream.getPublishedName());
+			broadcastStreamServiceImpl.getActiveByName(stream.getPublishedName());
 		} catch (AppException e) {
 			e.printStackTrace();
 		} finally {
@@ -76,6 +77,9 @@ public class Application extends ApplicationAdapter {
 					.getRemoteAddress(), item.getName());
 			
 			log.info("Is connection alloved:{}", status );
+			
+			//TODO use status
+			status = true;
 			if (!status){
 //			if (true){
 				log.info("Closing connection for  c-ip{} to stream: {}", Red5
@@ -100,6 +104,12 @@ public class Application extends ApplicationAdapter {
 		log.info("oflaDemo appStart");
 		System.out.println("oflaDemo appStart");
 		appScope = app;
+		try {
+			new  BroadcastStreamServiceImpl().unregisterAllActiveBroadcastStreams();
+		}
+		catch (AppException e) {
+			log.error(e.getLocalizedMessage());
+		}
 		return true;
 	}
 

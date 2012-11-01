@@ -56,11 +56,11 @@ public class Channel {
 		Description = description;
 	}
 
-	String getBroadcastStream() {
+	public String getBroadcastStream() {
 		return this.broadcastStreamName;
 	}
 
-	void setBroadcastStream(String broadcastStreamName) {
+	public void setBroadcastStream(String broadcastStreamName) {
 		this.broadcastStreamName = broadcastStreamName;
 	}
 

@@ -30,8 +30,11 @@ public class ChannelDAOHibernateImpl extends DAO implements IChannelDAO {
 	@Override
 	public List<Channel> getAll() throws AppException {
 		try {
-			Query q = getSession().createQuery("from Chanel ");
+			begin();
+			Query q = getSession().createQuery("from Channel ");
 			List<Channel> channels = q.list();
+			commit();
+
 			return channels;
 		} catch (HibernateException e) {
 			log.error(e);
@@ -42,10 +45,13 @@ public class ChannelDAOHibernateImpl extends DAO implements IChannelDAO {
 	@Override
 	public Channel getById(Integer id) throws AppException {
 		try {
+			begin();
 			Query q = getSession()
 					.createQuery("from Channel h where h.Id= :id");
 			q.setLong("id", id);
 			Channel channel = (Channel) q.uniqueResult();
+			commit();
+
 			return channel;
 		} catch (HibernateException e) {
 			log.error(e);
@@ -56,10 +62,13 @@ public class ChannelDAOHibernateImpl extends DAO implements IChannelDAO {
 	@Override
 	public Channel getByBroadcastStream(String broadcastStreamName) throws AppException {
 		try {
+			begin();
 			Query q = getSession()
 					.createQuery("from Channel h where h.broadcastStreamName= :broadcastStreamName");
 			q.setString("broadcastStreamName", broadcastStreamName);
 			Channel channel = (Channel) q.uniqueResult();
+			commit();
+
 			return channel;
 		} catch (HibernateException e) {
 			log.error(e);
@@ -70,11 +79,14 @@ public class ChannelDAOHibernateImpl extends DAO implements IChannelDAO {
 	@Override
 	public List<Channel> getByName(String name) throws AppException {
 		try {
+			begin();
 			Query q = getSession()
 					.createQuery("from Channel h where h.channelName= :name");
 			q.setString("name", name);
 			@SuppressWarnings("unchecked")
 			List<Channel> channels = q.list();
+			commit();
+
 			return channels;
 		} catch (HibernateException e) {
 			log.error(e);

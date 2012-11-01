@@ -10,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.hts.entities.BroadcastStream;
-import com.hts.entities.Room;
 import com.hts.exceptions.AppException;
 import com.hts.service.BroadcastStreamServiceImpl;
 

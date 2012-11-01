@@ -1,24 +1,25 @@
 package com.hts.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.hts.dao.ChannelDAOHibernateImpl;
 import com.hts.dao.DAO;
+import com.hts.entities.BroadcastStream;
 import com.hts.entities.Channel;
 import com.hts.entities.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public class ChannelServiceImpl implements IChannelService {
 	final Logger log = Logger.getLogger(this.getClass());
+
 	ChannelDAOHibernateImpl channelDAO = new ChannelDAOHibernateImpl();
 
 	@Override
-	public Channel create(String channelName, String broadcastStreamName)
-			throws AppException {
-		Channel h = channelDAO.create(new Channel(channelName,
-				broadcastStreamName));
+	public Channel create(String channelName, String broadcastStreamName) throws AppException {
+		Channel h = channelDAO.create(new Channel(channelName, broadcastStreamName));
 		DAO.close();
 		log.info("created channel: " + h);
 		return h;
@@ -40,36 +41,61 @@ public class ChannelServiceImpl implements IChannelService {
 
 	@Override
 	public Channel getById(Integer id) throws AppException {
-		return channelDAO.getById(id);
+
+		Channel c = channelDAO.getById(id);
+		DAO.close();
+		return c;
 	}
 
 	@Override
 	public List<Channel> getByName(String name) throws AppException {
-		return channelDAO.getByName(name);
+		List<Channel> c = channelDAO.getByName(name);
+		DAO.close();
+		return c;
 	}
 
 	@Override
 	public List<Channel> getAll() throws AppException {
-		return channelDAO.getAll();
+		List<Channel> c = channelDAO.getAll();
+		DAO.close();
+		return c;
 	}
 
 	@Override
-	public void addToSubscriptionPackage(Channel channel,
-			SubscriptionPackage subscriptionPackage) throws AppException {
+	public void addToSubscriptionPackage(Channel channel, SubscriptionPackage subscriptionPackage) throws AppException {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public void removeFromSubscriptionPackage(Channel channel,
-			SubscriptionPackage subscriptionPackage) throws AppException {
+	public void removeFromSubscriptionPackage(Channel channel, SubscriptionPackage subscriptionPackage)
+			throws AppException {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public Channel getByBroadcastName(String broadcastStreamName) throws AppException {
-		return channelDAO.getByBroadcastStream(broadcastStreamName);
+		Channel c = channelDAO.getByBroadcastStream(broadcastStreamName);
+		DAO.close();
+		return c;
+	}
+
+	@Override
+	public List<Channel> getActive() throws AppException {
+		BroadcastStreamServiceImpl broadcastStreamService = new BroadcastStreamServiceImpl();
+
+		List<Channel> channels = channelDAO.getAll();
+		ArrayList<Channel> activeChannels = new ArrayList<Channel>();
+
+		for (Channel ch : channels) {
+			List<BroadcastStream> broadcastStreams = broadcastStreamService.getActiveByName(ch.getBroadcastStream());
+			if (!broadcastStreams.isEmpty()) {
+				log.info("Found active channel: " + ch +"List<BroadcastStream>: " + broadcastStreams);
+				activeChannels.add(ch);
+			}
+
+		}
+		DAO.close();
+		return activeChannels;
 	}
 
 }

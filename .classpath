@@ -27,9 +27,21 @@
 	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/ehcache-core-2.5.0.jar"/>
 	<classpathentry kind="lib" path="lib/ezmorph-1.0.6.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-commons-annotations-4.0.1.Final.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-core-4.1.7.Final.jar"/>
-	<classpathentry kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="lib/hibernate-commons-annotations-4.0.1.Final.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/D:/hibernate-release-4.1.7.Final/hibernate-release-4.1.7.Final/documentation/javadocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/hibernate-core-4.1.7.Final.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/D:/hibernate-release-4.1.7.Final/hibernate-release-4.1.7.Final/documentation/javadocs/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/hibernate-jpa-2.0-api-1.0.1.Final.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/D:/hibernate-release-4.1.7.Final/hibernate-release-4.1.7.Final/documentation/javadocs/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/httpclient-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/httpcore-4.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/jaudiotagger-2.0.4-SNAPSHOT.jar"/>

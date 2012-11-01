@@ -3,9 +3,11 @@ package com.hts.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
+import com.hts.entities.Channel;
 import com.hts.entities.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
@@ -31,9 +33,11 @@ public class SubscriptionPackageDAOHibernateImpl extends DAO implements ISubscri
 	public List<SubscriptionPackage> getAll() throws AppException {
 		
 		try {
+			begin();
 			Query q = getSession().createQuery(
 					"from SubscriptionPackage h");
 			List<SubscriptionPackage> subscriptionPackages= q.list();
+			commit();
 			return subscriptionPackages;
 		} catch (HibernateException e) {
 			log.error(e);
@@ -41,13 +45,24 @@ public class SubscriptionPackageDAOHibernateImpl extends DAO implements ISubscri
 		}
 	}
 	
+
 	@Override
 	public SubscriptionPackage getById(Integer id) throws AppException {
 		try {
+			begin();
 			Query q = getSession().createQuery(
-					"from SubscriptionPackage h where h.Id= :id");
+					"from SubscriptionPackage h where h.id= :id");
 			q.setLong("id", id);
 			SubscriptionPackage subscriptionPackage = (SubscriptionPackage) q.uniqueResult();
+//			Hibernate.initialize(subscriptionPackage.getChannels());
+			List<Channel> channels = subscriptionPackage.getChannels();
+			//lazy loading
+			channels.size();
+			
+			commit();
+			
+	
+			
 			return subscriptionPackage ;
 		} catch (HibernateException e) {
 			log.error(e);
@@ -86,10 +101,12 @@ public class SubscriptionPackageDAOHibernateImpl extends DAO implements ISubscri
 	@SuppressWarnings("unchecked")
 	public List<SubscriptionPackage> getByName(String name) throws AppException {
 		try {
+			begin();
 			Query q = getSession().createQuery(
 					"from SubscriptionPackage h where h.subscriptionPackageName= :name");
 			q.setString("name", name);
 			List<SubscriptionPackage> subscriptionPackages = q.list();
+			commit();
 			return subscriptionPackages ;
 		} catch (HibernateException e) {
 			log.error(e);

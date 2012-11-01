@@ -9,10 +9,9 @@ import com.hts.entities.BroadcastStream;
 import com.hts.exceptions.AppException;
 import org.hibernate.Query;
 
-public class BroadcastStreamDAOHibernateImpl extends DAO implements
-		IBroadcastStreamDAO {
+public class BroadcastStreamDAOHibernateImpl extends DAO implements IBroadcastStreamDAO {
 	final Logger log = Logger.getLogger(this.getClass());
-	
+
 	@Override
 	/**
 	 * Create BroadcastStrem content provider starts streaming RTMP.
@@ -35,7 +34,8 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 			getSession().save(stream);
 			commit();
 			return stream;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -45,12 +45,14 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	@Override
 	public BroadcastStream getById(Integer streamId) throws AppException {
 		try {
-			Query q = getSession().createQuery(
-					"from BroadcastStream s where s.id= :streamId");
+			begin();
+			Query q = getSession().createQuery("from BroadcastStream s where s.id= :streamId");
 			q.setString("streamId", streamId.toString());
 			BroadcastStream stream = (BroadcastStream) q.uniqueResult();
+			commit();
 			return stream;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
@@ -62,11 +64,12 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	 */
 	public void update(BroadcastStream stream) throws AppException {
 		try {
-			begin();
+			 begin();
 			stream.setUpdateDate(new Date());
 			getSession().update(stream);
-			commit();
-		} catch (HibernateException e) {
+			 commit();
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -77,10 +80,11 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	@Override
 	public void delete(BroadcastStream stream) throws AppException {
 		try {
-			begin();
+			 begin();
 			getSession().delete(stream);
-			commit();
-		} catch (HibernateException e) {
+			 commit();
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -91,10 +95,13 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	@SuppressWarnings("unchecked")
 	public List<BroadcastStream> getAll() throws AppException {
 		try {
+			begin();
 			Query q = getSession().createQuery("from BroadcastStream");
 			List<BroadcastStream> list = q.list();
+			commit();
 			return list;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
@@ -102,17 +109,18 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<BroadcastStream> list(int firstResult, int maxResults)
-			throws AppException {
+	public List<BroadcastStream> list(int firstResult, int maxResults) throws AppException {
 		try {
+			begin();
 			Query q = getSession().createQuery("from BroadcastStream");
 			q.setFirstResult(firstResult);
 			q.setMaxResults(maxResults);
 			List<BroadcastStream> list = q.list();
 
-			// System.out.println(list.size());
+			commit();
 			return list;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
@@ -123,13 +131,14 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	@Override
 	public List<BroadcastStream> getByName(String name) throws AppException {
 		try {
-			Query q =getSession().createQuery("from BroadcastStream s where s.streamName= :sname");
+			begin();
+			Query q = getSession().createQuery("from BroadcastStream s where s.streamName= :sname");
 			q.setString("sname", name.toString());
 			List<BroadcastStream> list = q.list();
-
-			// System.out.println(list.size());
+			commit();
 			return list;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
@@ -139,13 +148,32 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements
 	@Override
 	public List<BroadcastStream> getActiveByName(String name) throws AppException {
 		try {
-			Query q =getSession().createQuery("from BroadcastStream s where s.streamName= :sname and s.isActive=true");
+			begin();
+			Query q = getSession().createQuery("from BroadcastStream s where s.streamName= :sname and s.isActive=1");
 			q.setString("sname", name.toString());
 			List<BroadcastStream> list = q.list();
 
-			// System.out.println(list.size());
+			commit();
 			return list;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
+			log.error(e);
+			throw new AppException(e.getCause().getMessage());
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<BroadcastStream> getAllActive() throws AppException {
+		try {
+			begin();
+			Query q = getSession().createQuery("from BroadcastStream s where s.isActive=true");
+			List<BroadcastStream> list = q.list();
+			commit();
+
+			return list;
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}

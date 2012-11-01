@@ -3,6 +3,10 @@ package com.hts.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -49,7 +53,8 @@ public class Room {
 		this.roomName = roomName;
 	}
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	public Hotel getHotel() {
 		return hotel;
 	}
@@ -58,7 +63,8 @@ public class Room {
 		this.hotel = hotel;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	public SubscriptionPackage getSubscriptionPackage() {
 		return subscriptionPackage;
 	}

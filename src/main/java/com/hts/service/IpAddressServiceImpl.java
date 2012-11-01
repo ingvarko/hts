@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.hts.dao.DAO;
 import com.hts.dao.IpAddressDAOHibernateImpl;
+import com.hts.dao.SubscriptionPackageDAOHibernateImpl;
 import com.hts.entities.Channel;
 import com.hts.entities.IpAddress;
 import com.hts.entities.Room;
@@ -15,7 +16,9 @@ import com.hts.exceptions.AppException;
 
 public class IpAddressServiceImpl implements IIpAddressService {
 	final Logger log = Logger.getLogger(this.getClass());
+
 	IpAddressDAOHibernateImpl ipAddressDAO = new IpAddressDAOHibernateImpl();
+	SubscriptionPackageDAOHibernateImpl subscriptionPackageDAO = new SubscriptionPackageDAOHibernateImpl();
 
 	@Override
 	public void update(IpAddress ipAddress) throws AppException {
@@ -37,7 +40,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 	}
 
 	@Override
-	public List<IpAddress> getByIp(String ipAddress) throws AppException {
+	public IpAddress getByIp(String ipAddress) throws AppException {
 		return ipAddressDAO.getByIp(ipAddress);
 	}
 
@@ -47,44 +50,49 @@ public class IpAddressServiceImpl implements IIpAddressService {
 	}
 
 	@Override
-	public IpAddress create(String name) throws UnknownHostException,
-			AppException {
+	public IpAddress create(String name) throws UnknownHostException, AppException {
 
 		IpAddress ipAddress = new IpAddress(name);
 
 		ipAddressDAO.create(ipAddress);
 		DAO.close();
-		log.info("updated ipAddress: " + ipAddress.getIpAddress());
+		log.info("created ipAddress: " + ipAddress.getIpAddress());
 		return ipAddress;
 
 	}
 
 	@Override
-	public boolean isBroadcastStreamAllowedForIP(String ipAddress,
-			String broadcastStreamName) throws UnknownHostException,
-			AppException {
-		log.info("calling isBroadcastStreamAllowedForIP("+ipAddress+","+
-			broadcastStreamName+");");
-		
-		List<IpAddress> ipAddresses = ipAddressDAO.getByIp(ipAddress);
-		if (ipAddresses.size()==0)
+	public boolean isBroadcastStreamAllowedForIP(String ipAddress, String broadcastStreamName)
+			throws UnknownHostException, AppException {
+		log.info("calling isBroadcastStreamAllowedForIP(" + ipAddress + "," + broadcastStreamName + ");");
+
+		IpAddress ipAddr= ipAddressDAO.getByIp(ipAddress);
+		if (ipAddr == null)
 			return false;
-		
-		IpAddress ipAddr = ipAddresses.get(0);
-		
+
 		Room room = ipAddr.getRoom();
-		if (room==null)
+		if (room == null)
 			return false;
-		SubscriptionPackage subscriptionPackage = room.getSubscriptionPackage();
-		if (subscriptionPackage ==null)
+		SubscriptionPackage subscriptionPackage = new SubscriptionPackageDAOHibernateImpl().getById(room.getSubscriptionPackage().getId()); 
+		if (subscriptionPackage == null)
 			return false;
 		
-		List<Channel> chanels = (List<Channel>) subscriptionPackage
-				.getChannels();
-		Channel channel = new ChannelServiceImpl()
-				.getByBroadcastName(broadcastStreamName);
-		return chanels.contains(channel);
-
+		List<Channel> channels = (List<Channel>) subscriptionPackage.getChannels();
+		
+		Channel channel = new ChannelServiceImpl().getByBroadcastName(broadcastStreamName);
+		if (channel ==null){
+			//TODO return false
+			return true;
+		}
+		
+		//doesn;t work here: return channels.contains(channel);
+		//workaround for Object.equal:
+		for(Channel c : channels){
+			if (c.getId()==channel.getId()){
+				return true;
+			}
+		}
+		
+		return false;
 	}
-
 }

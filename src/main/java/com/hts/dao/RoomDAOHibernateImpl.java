@@ -2,6 +2,7 @@ package com.hts.dao;
 
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
@@ -18,7 +19,8 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 			getSession().save(room);
 			commit();
 			return room;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -28,12 +30,16 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 	@Override
 	public Room getById(Integer id) throws AppException {
 		try {
-			Query q = getSession().createQuery(
-					"from Room r where r.id= :id");
+			begin();
+			Query q = getSession().createQuery("from Room r where r.id= :id");
 			q.setInteger("id", id);
-			Room room= (Room) q.uniqueResult();
+			Room room = (Room) q.uniqueResult();
+			commit();
+			Hibernate.initialize(room);
+
 			return room;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
@@ -45,7 +51,8 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 			begin();
 			getSession().update(room);
 			commit();
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -58,7 +65,8 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 			begin();
 			getSession().delete(room);
 			commit();
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -69,10 +77,16 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 	@Override
 	public List<Room> getAll() throws AppException {
 		try {
+			begin();
 			Query q = getSession().createQuery("from Room");
-			List<Room> rooms= q.list();
+			List<Room> rooms = q.list();
+			commit();
+			for (Room r : rooms) {
+				Hibernate.initialize(r);
+			}
 			return rooms;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
@@ -82,12 +96,18 @@ public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {
 	@Override
 	public List<Room> getByName(String roomName) throws AppException {
 		try {
-			Query q = getSession().createQuery(
-					"from Room r where r.roomName= :name");
+			begin();
+			Query q = getSession().createQuery("from Room r where r.roomName= :name");
 			q.setString("name", roomName);
-			List<Room> rooms= q.list();
+			List<Room> rooms = q.list();
+			commit();
+			for (Room r : rooms) {
+				Hibernate.initialize(r);
+			}
+
 			return rooms;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}

@@ -4,29 +4,17 @@ import org.apache.log4j.Logger;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import com.hts.filter.HibernateUtil;
 
 public class DAO {
 
 	final Logger log = Logger.getLogger(this.getClass());
-	
-	
-	private static final ThreadLocal<Session> session = new ThreadLocal<Session>();
-	@SuppressWarnings("deprecation")
-	private static final SessionFactory sessionFactory = new Configuration()
-			.configure().buildSessionFactory();
-	
+	 
 	protected DAO() {
 	}
 
 	public static Session getSession() {
-		Session session = (Session) DAO.session.get();
-		if (session == null) {
-			session = sessionFactory.openSession();
-			DAO.session.set(session);
-		}
-		return session;
+		return HibernateUtil.getSessionFactory().getCurrentSession();
 	}
 
 	protected void begin() {
@@ -48,11 +36,12 @@ public class DAO {
 		} catch (HibernateException e) {
 			System.out.println(e.getMessage());
 		}
-		DAO.session.set(null);
 	}
 
+	/**
+	 * Closes session. Set Session to null
+	 */
 	public static void close() {
 		getSession().close();
-		DAO.session.set(null);
 	}
 }

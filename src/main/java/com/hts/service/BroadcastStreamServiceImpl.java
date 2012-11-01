@@ -12,95 +12,90 @@ import com.hts.exceptions.AppException;
 
 public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 	final Logger log = Logger.getLogger(this.getClass());
-	static BroadcastStreamDAOHibernateImpl serviceDAO = new BroadcastStreamDAOHibernateImpl();
+
+	static BroadcastStreamDAOHibernateImpl broadcastStreamDAO = new BroadcastStreamDAOHibernateImpl();
 
 	@Override
-	public BroadcastStream create (String name)
-			throws AppException {
+	public BroadcastStream create(String name) throws AppException {
 
 		BroadcastStream stream = new BroadcastStream(name);
 		stream.setPublishedDate(new Date());
 		stream.setUpdateDate(stream.getPublishedDate());
 		stream.setStatus(BroadcastStream.ACTIVE);
 
-		serviceDAO.create(stream);
+		broadcastStreamDAO.create(stream);
 		DAO.close();
 		log.info("registerBroadcastStream:" + stream);
 		return stream;
 	}
 
 	@Override
-	public void delete (BroadcastStream broadcastStream)
-			throws AppException {
+	public void delete(BroadcastStream broadcastStream) throws AppException {
 
-		serviceDAO.delete(broadcastStream);
+		broadcastStreamDAO.delete(broadcastStream);
 		DAO.close();
 		log.info("deleted BroadcastStream:" + broadcastStream.getName());
 	}
 
 	/**
-	 * Finds all streams by given name which could remains from previous server starts.
-	 * Set in all streams @unpublishedDate to new Date() and @status to inactive.
+	 * Finds all streams by given name which could remains from previous server starts. Set in all streams @unpublishedDate
+	 * to new Date() and @status to inactive.
 	 */
 	@Override
-	public void  unregisterBroadcastStream(String broadcastStreamName)
-			throws AppException {
-		List <BroadcastStream> list = serviceDAO.getActiveByName(broadcastStreamName);
-		
-		for (BroadcastStream str : list) {
-			str.setUpdateDate(new Date());
-			str.setUnpublishedDate(new Date());
-			str.setStatus(BroadcastStream.INACTIVE);
+	public void unregisterBroadcastStream(String broadcastStreamName) throws AppException {
+		List<BroadcastStream> list = broadcastStreamDAO.getActiveByName(broadcastStreamName);
 
-			serviceDAO.update(str);
+		for (BroadcastStream str : list) {
+			setInactive(str);
+			broadcastStreamDAO.update(str);
+			log.info("unregisterBroadcastStream:" + str);
 		}
-		
 		DAO.close();
-		log.info("unregisterBroadcastStream:" + broadcastStreamName);
+	}
+
+	private void setInactive(BroadcastStream str) {
+		str.setUpdateDate(new Date());
+		str.setUnpublishedDate(new Date());
+		str.setStatus(BroadcastStream.INACTIVE);
+	}
+
+	@Override
+	public void unregisterAllActiveBroadcastStreams() throws AppException {
+		List<BroadcastStream> list = broadcastStreamDAO.getAllActive();
+
+		for (BroadcastStream str : list) {
+			setInactive(str);
+			broadcastStreamDAO.update(str);
+			log.info("unregisterBroadcastStream:" + str);
+		}
 	}
 
 	@Override
 	public List<BroadcastStream> getAllBroadcastStreams() throws AppException {
-		List<BroadcastStream> list = serviceDAO.getAll();
+		List<BroadcastStream> list = broadcastStreamDAO.getAll();
 		DAO.close();
 		log.info("getAllBroadcastStreams:" + list);
 		return list;
 	}
 
 	@Override
-	public BroadcastStream getById(Integer streamId)
-			throws AppException {
-		return serviceDAO.getById(streamId);
+	public BroadcastStream getById(Integer streamId) throws AppException {
+		BroadcastStream b = broadcastStreamDAO.getById(streamId);
+		DAO.close();
+		return b;
 	}
 
 	@Override
-	public List<BroadcastStream> getByName(String name)
-			throws AppException {
-		return serviceDAO.getByName(name);
+	public List<BroadcastStream> getByName(String name) throws AppException {
+		List<BroadcastStream> b = broadcastStreamDAO.getByName(name);
+		DAO.close();
+		return b;
 	}
 
 	@Override
-	public void allowRoomAccess() throws AppException {
-		// TODO Auto-generated method stub
-
+	public List<BroadcastStream> getActiveByName(String name) throws AppException {
+		List<BroadcastStream> b = broadcastStreamDAO.getActiveByName(name);
+		DAO.close();
+		return b;
 	}
-
-	@Override
-	public void withdrawRoomAccess() throws AppException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void connectRoom() throws AppException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void disconnectRoom() throws AppException {
-		// TODO Auto-generated method stub
-
-	}
-
 }

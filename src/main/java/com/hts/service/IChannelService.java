@@ -14,6 +14,7 @@ public interface IChannelService {
 	void delete(Channel channel) throws AppException;
 	List<Channel> getAll() throws AppException;
 	List<Channel> getByName(String name) throws AppException;
+	List<Channel> getActive() throws AppException;
 	
 	Channel create(String name, String broadcastStreamName) throws AppException;
 	

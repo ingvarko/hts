@@ -2,6 +2,7 @@ package com.hts.dao;
 
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
@@ -17,8 +18,10 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 			begin();
 			getSession().save(ipAddress);
 			commit();
+
 			return ipAddress;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -28,12 +31,15 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 	@Override
 	public IpAddress getById(Integer id) throws AppException {
 		try {
-			Query q = getSession().createQuery(
-					"from IpAddress r where r.id= :id");
+			begin();
+			Query q = getSession().createQuery("from IpAddress r where r.id= :id");
 			q.setInteger("id", id);
 			IpAddress ipAddress = (IpAddress) q.uniqueResult();
+			commit();
+
 			return ipAddress;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
@@ -44,8 +50,10 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 		try {
 			begin();
 			getSession().update(ipAddress);
+
 			commit();
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -58,8 +66,10 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 			begin();
 			IpAddress ipAddress1 = (IpAddress) getSession().merge(ipAddress);
 			getSession().delete(ipAddress1);
+
 			commit();
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			rollback();
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
@@ -70,24 +80,38 @@ public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {
 	@Override
 	public List<IpAddress> getAll() throws AppException {
 		try {
+			begin();
 			Query q = getSession().createQuery("from IpAddress");
 			List<IpAddress> ipAddress = q.list();
+			commit();
+
 			return ipAddress;
-		} catch (HibernateException e) {
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<IpAddress> getByIp(String ipAddress) throws AppException {
+	public IpAddress getByIp(String ipAddress) throws AppException {
 		try {
-			Query q = getSession().createQuery(
-					"from IpAddress r where r.ipAddress= :ipAddress");
+			begin();
+			Query q = getSession().createQuery("from IpAddress r where r.ipAddress= :ipAddress");
 			q.setString("ipAddress", ipAddress);
-			return  q.list();
-		} catch (HibernateException e) {
+			IpAddress ipAddr = (IpAddress) q.uniqueResult();
+			commit();
+			if (ipAddr != null) {
+				Hibernate.initialize(ipAddr);
+				if (ipAddr.getRoom() != null) {
+					Hibernate.initialize(ipAddr.getRoom());
+					if (ipAddr.getRoom().getSubscriptionPackage() != null)
+						Hibernate.initialize(ipAddr.getRoom().getSubscriptionPackage());
+				}
+			}
+			return ipAddr;
+		}
+		catch (HibernateException e) {
 			log.error(e);
 			throw new AppException(e.getCause().getMessage());
 		}

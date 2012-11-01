@@ -37,6 +37,12 @@
    		<servlet-name>SecurityTest</servlet-name>
    		<servlet-class>org.red5.demos.oflaDemo.SecurityTest</servlet-class>
    	</servlet>
+
+   	<servlet>
+   		<display-name>VideoList</display-name>
+   		<servlet-name>VideoList</servlet-name>
+   		<servlet-class>com.hts.servlet.VideoList</servlet-class>
+   	</servlet>
     
 	<servlet-mapping>
 		<servlet-name>rtmpt</servlet-name>
@@ -66,6 +72,11 @@
 	<servlet-mapping>
 		<servlet-name>SecurityTest</servlet-name>
 		<url-pattern>/securitytest</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>VideoList</servlet-name>
+		<url-pattern>/videoList.xml</url-pattern>
 	</servlet-mapping>
     
     <security-constraint>

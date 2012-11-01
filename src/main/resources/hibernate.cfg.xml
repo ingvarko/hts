@@ -19,7 +19,7 @@
 			and let Hibernate bind the session automatically to the thread -->
 		<property name="current_session_context_class">thread</property>
 		<!-- this will show us all sql statements -->
-		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.show_sql">false</property>
 		<!-- this will create the database tables for us 
 		validate | update | create | create-drop
 		-->

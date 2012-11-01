@@ -11,6 +11,7 @@ public interface IChannelDAO {
 	void update(Channel channel) throws AppException;
 	void delete(Channel channel) throws AppException;
 	List<Channel> getAll() throws AppException;
+	
 	List<Channel> getByName(String name) throws AppException;
 	Channel getByBroadcastStream(String broadcastStreamName)
 			throws AppException;

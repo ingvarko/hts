@@ -13,12 +13,7 @@ public interface IBroadcastStreamService {
 	BroadcastStream getById(Integer streamId) throws AppException;
 	void delete(BroadcastStream broadcastStream) throws AppException;
 
-	//
-	void allowRoomAccess() throws AppException;
-	void withdrawRoomAccess() throws AppException;
-	
-	//
-	void connectRoom() throws AppException;
-	void disconnectRoom()throws AppException;
 	List<BroadcastStream> getByName(String name) throws AppException;
+	List<BroadcastStream> getActiveByName(String name) throws AppException;
+	void unregisterAllActiveBroadcastStreams() throws AppException;
 }

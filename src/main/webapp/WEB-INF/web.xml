@@ -41,7 +41,7 @@
    	<servlet>
    		<display-name>VideoList</display-name>
    		<servlet-name>VideoList</servlet-name>
-   		<servlet-class>com.hts.servlets.VideoList</servlet-class>
+   		<servlet-class>com.hts.servlet.VideoList</servlet-class>
    	</servlet>
     
 	<servlet-mapping>
