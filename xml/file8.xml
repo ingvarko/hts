@@ -1,0 +1,13 @@
+<smil>
+<head>
+ <meta base="rtmp://localhost/oflaDemo" />
+<layout>
+<root-layout width="640" height="480" />
+</layout>
+</head>
+<body>
+<switch>
+<video src="jam.flv"/>
+</switch>
+</body>
+</smil>

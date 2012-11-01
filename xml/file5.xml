@@ -1,0 +1,13 @@
+<smil>
+<head>
+ <meta base="rtmp://localhost/oflaDemo" />
+<layout>
+<root-layout width="640" height="480" />
+</layout>
+</head>
+<body>
+<switch>
+<video src=""Miami Heat vs. Toronto Raptors 3-30-2012 1st Quarter.flv""/>
+</switch>
+</body>
+</smil>

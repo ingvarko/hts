@@ -1,0 +1,65 @@
+<assetlist>
+<item>
+<id>1</id>
+<caption>Video1 Title</caption>
+<description>A short desciption for Video1.</description>
+<videoname>file1.xml</videoname>
+<assetURL>thumbnails/slide1.jpg</assetURL>
+</item>
+<item>
+<id>2</id>
+<caption>Caption for Video2</caption>
+<description>A Neat desciption for vide2. The list will size automatically.</description>
+<videoname>file2.xml</videoname>
+<assetURL>thumbnails/slide2.jpg</assetURL>
+</item>
+<item>
+<id>3</id>
+<caption>Caption for video3</caption>
+<description>A short desciption for video3.</description>
+<videoname>file3.xml</videoname>
+<assetURL>thumbnails/slide3.jpg</assetURL>
+</item>
+<item>
+<id>4</id>
+<caption>Caption for video4</caption>
+<description>A Neat desciption for item4. The list will size automatically.</description>
+<videoname>file4.xml</videoname>
+<assetURL>thumbnails/slide4.jpg</assetURL>
+</item>
+<item>
+<id>5</id>
+<caption>Video5 Title</caption>
+<description>A Neat desciption for video5. The list will size automatically.</description>
+<videoname>file5.xml</videoname>
+<assetURL>thumbnails/slide5.jpg</assetURL>
+</item>
+<item>
+<id>6</id>
+<caption>Video5 Title</caption>
+<description>A Neat desciption for video5. The list will size automatically.</description>
+<videoname>file6.xml</videoname>
+<assetURL>thumbnails/slide5.jpg</assetURL>
+</item>
+<item>
+<id>7</id>
+<caption>Video5 Title</caption>
+<description>A Neat desciption for video5. The list will size automatically.</description>
+<videoname>file7.xml</videoname>
+<assetURL>thumbnails/slide5.jpg</assetURL>
+</item>
+<item>
+<id>8</id>
+<caption>Video5 Title</caption>
+<description>A Neat desciption for video5. The list will size automatically.</description>
+<videoname>file8.xml</videoname>
+<assetURL>thumbnails/slide5.jpg</assetURL>
+</item>
+<item>
+<id>9</id>
+<caption>Video5 Title</caption>
+<description>A Neat desciption for video5. The list will size automatically.</description>
+<videoname>file9.xml</videoname>
+<assetURL>thumbnails/slide5.jpg</assetURL>
+</item>
+</assetlist>

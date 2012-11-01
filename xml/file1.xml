@@ -1,0 +1,13 @@
+<smil>
+<head>
+ <meta base="rtmp://localhost/vod/" />
+<layout>
+<root-layout width="640" height="480" />
+</layout>
+</head>
+<body>
+<switch>
+<video src="flv:MiamiHeatvs.TorontoRaptors3-30-20121stQuarter.flv"/>
+</switch>
+</body>
+</smil>
