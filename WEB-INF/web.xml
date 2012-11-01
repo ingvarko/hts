@@ -44,6 +44,13 @@
    		<servlet-class>com.hts.servlet.VideoList</servlet-class>
    	</servlet>
     
+   	<servlet>
+   		<display-name>JsonService</display-name>
+   		<servlet-name>JsonService</servlet-name>
+   		<servlet-class>org.red5.demos.oflaDemo.JsonService</servlet-class>
+   	</servlet>
+    
+    
 	<servlet-mapping>
 		<servlet-name>rtmpt</servlet-name>
 		<url-pattern>/fcs/*</url-pattern>
@@ -78,6 +85,12 @@
 		<servlet-name>VideoList</servlet-name>
 		<url-pattern>/videoList.xml</url-pattern>
 	</servlet-mapping>
+    
+	<servlet-mapping>
+		<servlet-name>JsonService</servlet-name>
+		<url-pattern>/JsonService</url-pattern>
+	</servlet-mapping>
+    
     
     <security-constraint>
         <web-resource-collection>
