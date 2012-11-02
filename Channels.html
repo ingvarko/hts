@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Subpackages</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="js/jquery-ui-1.9.0.custom/css/dark-hive/jquery-ui-1.9.0.custom.css" />
+<link rel="stylesheet" type="text/css" href="js/jquery.jqGrid-4.4.1/css/ui.jqgrid.css" />
+<script src="js/jquery-ui-1.9.0.custom/js/jquery-1.8.2.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.js" type="text/javascript"></script>
+<script src="js/jquery.jqGrid-4.4.1/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script src="js/jquery.jqGrid-4.4.1/js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<style>
+html, body{
+	margin: 0;
+	padding: 0;
+	font-size:90%;
+	}
+</style>
+<script type="text/javascript">
+$(function() {
+	var lastsel;
+	$("#Channels").jqGrid({			
+		url: 'http://localhost:5080/oflaDemo/tmpDatabase/ChannelsDb.txt',
+		datatype: "json",
+		width: "auto",
+		height: "auto",
+		colNames:['Num','Broadcast Name','Description', 'Image'],
+		colModel:[
+			{name: 'num', index: 'num',  width:65, sortable: true, editable:true, align:"center"},
+			{name: 'broadcastname', index: 'broadcast name',  width:150, sortable: true, editable:true, align:"center"},
+			{name: 'description', index: 'description', width:175, sortable: true,  editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"25"}, align:"center"},
+			{name: 'image', index: 'image',  width:100, sortable: false,  editable:true, align:"center"}
+			 ],
+		pager: "#panel",
+		pgbuttons: false,
+		pginput: false,
+		caption: " Channels ",
+		jsonReader: {
+			root: "rows",
+			repeatitems: false 
+		},
+		onSelectRow: function(rowid){
+			if(rowid && rowid!==lastsel){
+				jQuery("#Channels").jqGrid('editRow',rowid,true);
+				jQuery("#Channels").jqGrid('restoreRow',lastsel);
+				lastsel=rowid;	
+			}
+			else{
+				jQuery("#Channels").jqGrid('restoreRow',lastsel);
+				lastsel=null;
+			}
+		},
+		editurl: 'http://localhost:5080/oflaDemo/tmpDatabase/ChannelsDb.txt'
+	});
+	$("#Channels").jqGrid('navGrid','#panel',{edit: false, add: false, del: false, search: false, refresh: false});	
+});
+</script>
+</head>
+<body>
+<div align="center"><table id="Channels"></table></div>
+<div id="panel"></div>
+</body>
+</html>
