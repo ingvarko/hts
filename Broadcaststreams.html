@@ -24,13 +24,13 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num","Active","Name","Published","Unpublished","Updated", "Channel"],
 		colModel:[
-			{name:"num", width:65, sortable:true, editable:true, align:"center"},
+			{name:"num", width:65, sortable:true, editable:true, align:"center", title: false},
 	 		{name:"active", hidden:true, editable:true},
-			{name:"name", width:175, sortable:false, align:"center",editable:true},
-			{name:"pb", width:175, sortable:false, align:"center", editable:true},
-			{name:"upb", width:175, sortable:false, align:"center", editable:true},
-			{name:"updated", width:175, sortable:false, align:"center", editable:true},
-			{name:"channel", width:175, sortable:false, align:"center", editable:true}	
+			{name:"name", width:175, sortable:false, align:"center",editable:true, title: false},
+			{name:"pb", width:175, sortable:false, align:"center", editable:true, title: false},
+			{name:"upb", width:175, sortable:false, align:"center", editable:true, title: false},
+			{name:"updated", width:175, sortable:false, align:"center", editable:true, title: false},
+			{name:"channel", width:175, sortable:false, align:"center", editable:true, title: false}	
 		],
 		caption: "Broadcast Streams",
 		pager: "#panel",

@@ -34,10 +34,10 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num","Room name","Subspackage","IP"],
 		colModel:[
-			{name:"num", width:65, sortable:true, editable:true, align:"center"},
-	 		{name:"room_name", width:125, sortable:false, align:"center", editable:true},
+			{name:"num", width:65, sortable:true, editable:true, align:"center", title: false},
+	 		{name:"room_name", width:125, sortable:false, align:"center", editable:true, title: false},
 			{name:"subspackage", width:175, sortable:false,align:"center",editable:true,
-			edittype:"select",editoptions:{value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}},
+			edittype:"select",editoptions:{value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}, title: false},
 			{name:"ip", hidden:true, editable:true}
 		],
 		caption: "Rooms",

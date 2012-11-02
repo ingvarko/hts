@@ -24,11 +24,11 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num","Subpackage Name","Description","Cost","Channels"],
 		colModel:[
-			{name:"num", width:30, sortable:true, align:"center", editable:true},
-	 		{name:"subpackagename", width:100, sortable:false, align:"center", editable:true},
-			{name:"description", width:175, sortable:false, align:"center", editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"25"}},
-			{name:"cost",width:75, sortable:true, align:"center", editable:true},
-			{name:"channels", width:175, sortable:true, align:"center", editable:true, edittype:"select", editoptions:{value:"NG:National Geographic;DCH:Discovery channel;JETIX:Jetix"}}
+			{name:"num", width:30, sortable:true, align:"center", editable:true, title: false},
+	 		{name:"subpackagename", width:100, sortable:false, align:"center", editable:true, title: false},
+			{name:"description", width:175, sortable:false, align:"center", editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"25"}, title: false},
+			{name:"cost",width:75, sortable:true, align:"center", editable:true, title: false},
+			{name:"channels", width:175, sortable:true, align:"center", editable:true, edittype:"select", editoptions:{value:"NG:National Geographic;DCH:Discovery channel;JETIX:Jetix"}, title: false}
 		],
 		caption: "Subpackages",
 		pager: "#panel",
