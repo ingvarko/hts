@@ -1,5 +1,0 @@
-    
-{"total":"1",
-"page":"1",
-"records":"1",
-"rows":[{"hotelAddress":"null","uuId":"-6296079816695067927","hotelName":"My great hotel"}]}

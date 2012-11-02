@@ -1,9 +1,0 @@
-{  "page":"1",
-   "total":6,
-   "records":"60", 
-   "rows":[ 
-      {"uuId":"1","hotelAddress":"Chicago", "hotelName":"Quality Inn","amount":"amount","tax":"tax","total":"4","note":"note"},
-      {"uuId":"2","hotelAddress":"Denver", "hotelName":"Stay Bridge"},
-	{"hotelAddress":"null","uuId":"-6296079816695067927","hotelName":"My great hotel"}
-       ] }
-    
