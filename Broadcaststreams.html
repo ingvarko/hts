@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Subpackages</title>
+<title>Broadcaststreams</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.9.0.custom/css/dark-hive/jquery-ui-1.9.0.custom.css" />
 <link rel="stylesheet" type="text/css" href="js/jquery.jqGrid-4.4.1/css/ui.jqgrid.css" />
@@ -15,6 +15,9 @@ html, body{
 	padding: 0;
 	font-size:90%;
 	}
+.pointer { 
+cursor: pointer;
+}  
 </style>
 <script type="text/javascript">
 jQuery(function() {
@@ -24,13 +27,13 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num","Active","Name","Published","Unpublished","Updated", "Channel"],
 		colModel:[
-			{name:"num", width:65, sortable:true, editable:true, align:"center", title: false},
+			{name:"num", width:65, sortable:true, editable:true, align:"center", title:false, formatter:cursorpointer},
 	 		{name:"active", hidden:true, editable:true},
-			{name:"name", width:175, sortable:false, align:"center",editable:true, title: false},
-			{name:"pb", width:175, sortable:false, align:"center", editable:true, title: false},
-			{name:"upb", width:175, sortable:false, align:"center", editable:true, title: false},
-			{name:"updated", width:175, sortable:false, align:"center", editable:true, title: false},
-			{name:"channel", width:175, sortable:false, align:"center", editable:true, title: false}	
+			{name:"name", width:175, sortable:false, align:"center",editable:true, title:false, formatter:cursorpointer},
+			{name:"pb", width:175, sortable:false, align:"center", editable:true, title:false, formatter:cursorpointer},
+			{name:"upb", width:175, sortable:false, align:"center", editable:true, title:false, formatter:cursorpointer},
+			{name:"updated", width:175, sortable:false, align:"center", editable:true, title:false, formatter:cursorpointer},
+			{name:"channel", width:175, sortable:false, align:"center", editable:true, title:false, formatter:cursorpointer}	
 		],
 		caption: "Broadcast Streams",
 		pager: "#panel",
@@ -57,6 +60,10 @@ jQuery(function() {
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/BroadcaststreamsDb.txt'
 	});
 	jQuery("#bs").jqGrid('navGrid','#panel',{edit:false, add:false, del:false, search:false, refresh:false});
+	function cursorpointer(cellvalue, options, rowObject){ 
+		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
+		return newformat; 
+	};
 });
 </script>
 </head>
