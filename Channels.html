@@ -56,8 +56,7 @@ $(function() {
 		},
 		editurl: 'http://localhost:5080/oflaDemo/tmpDatabase/ChannelsDb.txt'
 	});
-	$("#Channels").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});	
-	$("#Channels").jqGrid('navGrid','#panel',{edit:false, add:false, del:false, search:false, refresh:false});	
+	jQuery("#Channels").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});	
 	function cursorpointer(cellvalue, options, rowObject){ 
 		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
 		return newformat; 
