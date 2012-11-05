@@ -59,6 +59,7 @@ jQuery(function() {
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/SubpackagesDb.txt'
 	});
 	jQuery("#Subpackages").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
+	jQuery("#Subpackages").jqGrid('navGrid','#panel',{edit:false, add:false, del:false, search:false, refresh:false});
 	function cursorpointer(cellvalue, options, rowObject){ 
 		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
 		return newformat; 

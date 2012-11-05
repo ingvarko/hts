@@ -33,7 +33,7 @@ jQuery(function() {
 			{name: "pb", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer},
 			{name: "upb", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer},
 			{name: "updated", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer},
-			{name: "channel", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer}	
+			{name: "channel", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer}
 		],
 		hidegrid: false,
 		caption: "Broadcast Streams",
@@ -61,6 +61,7 @@ jQuery(function() {
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/BroadcaststreamsDb.txt'
 	});
 	jQuery("#bs").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
+	jQuery("#bs").jqGrid('navGrid','#panel',{edit:false, add:false, del:false, search:false, refresh:false});
 	function cursorpointer(cellvalue, options, rowObject){ 
 		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
 		return newformat; 

@@ -33,7 +33,7 @@ $(function() {
 			{name: "broadcastname", index: "broadcast name",  width: 150, sortable: true, editable: true, align: "center", title: false, formatter: cursorpointer},
 			{name: "description", index: "description", width: 175, sortable: true,  editable: true, edittype: "textarea", editoptions: {rows:"2", cols:"25"}, align: "center", title: false, formatter: cursorpointer},
 			{name: "image", index: "image",  width: 100, sortable: false,  editable: true, align: "center", title: false, formatter: cursorpointer}
-			 ],
+		],
 		pager: "#panel",
 		pgbuttons: false,
 		pginput: false,
@@ -57,6 +57,7 @@ $(function() {
 		editurl: 'http://localhost:5080/oflaDemo/tmpDatabase/ChannelsDb.txt'
 	});
 	$("#Channels").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});	
+	$("#Channels").jqGrid('navGrid','#panel',{edit:false, add:false, del:false, search:false, refresh:false});	
 	function cursorpointer(cellvalue, options, rowObject){ 
 		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
 		return newformat; 
