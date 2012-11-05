@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Subpackages</title>
+<title>Rooms</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="js/jquery-ui-1.9.0.custom/css/dark-hive/jquery-ui-1.9.0.custom.css" />
 <link rel="stylesheet" type="text/css" href="js/jquery.jqGrid-4.4.1/css/ui.jqgrid.css" />
@@ -15,6 +15,9 @@ html, body{
 	padding: 0;
 	font-size:90%;
 	}
+.pointer { 
+cursor: pointer;
+}    
 </style>
 <script type="text/javascript">
 jQuery(function() {
@@ -32,20 +35,21 @@ jQuery(function() {
 	jQuery("#Rooms").jqGrid({			
 		url: 'http://localhost:5080/oflaDemo/tmpDatabase/RoomsDb.txt',
 		datatype: "json",
-		colNames:["Num","Room name","Subspackage","IP"],
+		colNames:["Num", "Room name", "Subspackage", "IP"],
 		colModel:[
-			{name:"num", width:65, sortable:true, editable:true, align:"center", title: false},
-	 		{name:"room_name", width:125, sortable:false, align:"center", editable:true, title: false},
-			{name:"subspackage", width:175, sortable:false,align:"center",editable:true,
-			edittype:"select",editoptions:{value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}, title: false},
-			{name:"ip", hidden:true, editable:true}
+			{name: "num", width: 65, sortable: true, editable: true, align: "center", title: false, formatter: cursorpointer},
+	 		{name: "room_name", width: 125, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer},
+			{name: "subspackage", width: 175, sortable: false, align: "center", editable: true,
+			edittype: "select", editoptions: {value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}, title: false, formatter: cursorpointer},
+			{name: "ip", hidden: true, editable: true}
 		],
+		hidegrid: false,
 		caption: "Rooms",
 		pager: "#panel",
 		pgbuttons: false,
 		pginput: false,
-		width:"auto",
-		height:"auto",
+		width: "auto",
+		height: "auto",
 		jsonReader: {
     			root: "rows",
     			repeatitems: false
@@ -53,19 +57,23 @@ jQuery(function() {
 		onSelectRow: function(rowid) {
 			jQuery("#viewip").button('enable');
 			if(rowid && rowid!=lastsel){
-				temp=jQuery("#Rooms").jqGrid('getRowData',rowid);
-				jQuery("#Rooms").jqGrid('editRow',rowid,true);
-				jQuery("#Rooms").jqGrid('restoreRow',lastsel);
+				temp=jQuery("#Rooms").jqGrid('getRowData', rowid);
+				jQuery("#Rooms").jqGrid('editRow', rowid, true);
+				jQuery("#Rooms").jqGrid('restoreRow', lastsel);
 				lastsel=rowid;	
 			}
 			else{
-				jQuery("#Rooms").jqGrid('restoreRow',lastsel);
+				jQuery("#Rooms").jqGrid('restoreRow', lastsel);
 				lastsel=null;
 			}
 		},
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/RoomsDb.txt'
 	});
-	jQuery("#Rooms").jqGrid('navGrid','#panel',{edit:false, add:false, del:false, search:false, refresh:false});
+	jQuery("#Rooms").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
+	function cursorpointer(cellvalue, options, rowObject){ 
+		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
+		return newformat; 
+	};
 });
 </script>
 </head>

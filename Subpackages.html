@@ -15,6 +15,9 @@ html, body{
 	padding: 0;
 	font-size:90%;
 	}
+.pointer { 
+cursor: pointer;
+}  
 </style>
 <script type="text/javascript">
 jQuery(function() {
@@ -22,39 +25,44 @@ jQuery(function() {
 	jQuery("#Subpackages").jqGrid({			
 		url: 'http://localhost:5080/oflaDemo/tmpDatabase/SubpackagesDb.txt',
 		datatype: "json",
-		colNames:["Num","Subpackage Name","Description","Cost","Channels"],
+		colNames:["Num", "Subpackage Name", "Description", "Cost", "Channels"],
 		colModel:[
-			{name:"num", width:30, sortable:true, align:"center", editable:true, title: false},
-	 		{name:"subpackagename", width:100, sortable:false, align:"center", editable:true, title: false},
-			{name:"description", width:175, sortable:false, align:"center", editable:true, edittype:"textarea", editoptions:{rows:"2",cols:"25"}, title: false},
-			{name:"cost",width:75, sortable:true, align:"center", editable:true, title: false},
-			{name:"channels", width:175, sortable:true, align:"center", editable:true, edittype:"select", editoptions:{value:"NG:National Geographic;DCH:Discovery channel;JETIX:Jetix"}, title: false}
+			{name: "num", width: 30, sortable: true, align: "center", editable: true, title: false, formatter: cursorpointer},
+	 		{name: "subpackagename", width: 100, sortable: false, align: "center", editable:true, title: false, formatter: cursorpointer},
+			{name: "description", width: 175, sortable: false, align: "center", editable: true, edittype: "textarea", editoptions: {rows:"2",cols:"25"}, title:false, formatter:cursorpointer},
+			{name: "cost",width: 75, sortable: true, align: "center", editable: true, title: false, formatter: cursorpointer},
+			{name: "channels", width: 175, sortable: true, align: "center", editable: true, edittype: "select", editoptions: {value:"NG:National Geographic;DCH:Discovery channel;JETIX:Jetix"}, title: false, formatter: cursorpointer}
 		],
+		hidegrid: false,
 		caption: "Subpackages",
 		pager: "#panel",
 		pgbuttons: false,
 		pginput: false,
-		width:"auto",
-		height:"auto",
+		width: "auto",
+		height: "auto",
 		jsonReader: {
     			root: "rows",
     			repeatitems: false
     			},
 		onSelectRow: function(rowid) {
 			if(rowid && rowid!==lastsel){
-				temp=jQuery("#Subpackages").jqGrid('getRowData',rowid);
-				jQuery("#Subpackages").jqGrid('editRow',rowid,true);
-				jQuery("#Subpackages").jqGrid('restoreRow',lastsel);
+				temp=jQuery("#Subpackages").jqGrid('getRowData', rowid);
+				jQuery("#Subpackages").jqGrid('editRow', rowid, true);
+				jQuery("#Subpackages").jqGrid('restoreRow', lastsel);
 				lastsel=rowid;	
 			}
 			else{
-				jQuery("#Subpackages").jqGrid('restoreRow',lastsel);
+				jQuery("#Subpackages").jqGrid('restoreRow', lastsel);
 				lastsel=null;
 			}
 		},
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/SubpackagesDb.txt'
 	});
-	jQuery("#Subpackages").jqGrid('navGrid','#panel',{edit:false, add:false, del:false, search:false, refresh:false});
+	jQuery("#Subpackages").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
+	function cursorpointer(cellvalue, options, rowObject){ 
+		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
+		return newformat; 
+	};
 });
 </script>
 </head>
