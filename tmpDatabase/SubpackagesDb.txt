@@ -1,6 +1,6 @@
 {  "page":"1",
-   "total":2,
-   "records":"3", 
+   "total":1,
+   "records":"7", 
    "rows":[ 
 	{"num":"1", "subpackagename":"Standart", "description":"These is good<br> package for family watching TV", "cost":"228", "channels":"National Geographic"},
 	{"num":"2", "subpackagename":"Standart", "description":"These is good<br> package for family watching TV", "cost":"228", "channels":"Discovery channel"},

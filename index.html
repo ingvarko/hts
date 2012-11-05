@@ -29,7 +29,7 @@ jQuery(function() {
 		treedatatype: "json",
 		colNames: ["Hotel", "id", "url"],
 		colModel: [
-			{name: "Hotel", index: "hotel", sortable: false, title: false, formatter: cursorpointer},
+			{name: "Hotel", index: "hotel", sortable: false, title: false, formatter: cursorpointer, unformat: unformatter},
 			{name: "id", index: "id", hidden: true},
 			{name: "url", index: "url", hidden: true}
 		],
@@ -50,6 +50,10 @@ jQuery(function() {
 	function cursorpointer(cellvalue, options, rowObject){ 
 		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
 		return newformat; 
+	};
+	function unformatter(cellvalue, options){
+		cellvalue=cellvalue.replace('<span class="pointer">','');
+		return cellvalue.replace('<span class="pointer">','');
 	};
 });
 document.onselectstart=function(){

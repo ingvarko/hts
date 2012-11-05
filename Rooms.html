@@ -37,10 +37,9 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num", "Room name", "Subspackage", "IP"],
 		colModel:[
-			{name: "num", width: 65, sortable: true, editable: true, align: "center", title: false, formatter: cursorpointer},
-	 		{name: "room_name", width: 125, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer},
-			{name: "subspackage", width: 175, sortable: false, align: "center", editable: true,
-			edittype: "select", editoptions: {value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}, title: false, formatter: cursorpointer},
+			{name: "num", width: 65, sortable: true, editable: true, align: "center", title: false, formatter: cursorpointer, unformat: unformatter},
+	 		{name: "room_name", width: 125, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
+			{name: "subspackage", width: 175, sortable: false, align: "center", editable: true, edittype: "select", editoptions: {value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}, title: false, formatter: cursorpointer, unformat: unformatter},
 			{name: "ip", hidden: true, editable: true}
 		],
 		hidegrid: false,
@@ -73,6 +72,10 @@ jQuery(function() {
 	function cursorpointer(cellvalue, options, rowObject){ 
 		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
 		return newformat; 
+	};
+	function unformatter(cellvalue, options){
+		cellvalue=cellvalue.replace('<span class="pointer">','');
+		return cellvalue.replace('<span class="pointer">','');
 	};
 });
 </script>
