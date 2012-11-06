@@ -3,10 +3,9 @@
 "total":"1",
 "records":"10000",
 "rows": [
-	{ "hotel_name": "Hotel", "id": "1", "url": "", "level": "0", "lft": "1", "rgt": "10", "isLeaf": "false", "expanded": "true", "loaded": "true"},
-	{ "hotel_name": "Broadcaststreams", "id": "2", "url": "Broadcaststreams.html", "level": "1", "lft": "2", "rgt": "3", "isLeaf": "true", "expanded": "false", "loaded": "true"},
-	{ "hotel_name": "Channels", "id": "3", "url": "Channels.html", "level": "1", "lft": "4", "rgt": "5", "isLeaf": "true", "expanded": "false", "loaded": "true"},
-	{ "hotel_name": "Rooms", "id": "4", "url": "Rooms.html", "level": "1", "lft": "6", "rgt": "7", "isLeaf": "true", "expanded": "false", "loaded": "true"},
-	{ "hotel_name": "Subpackages", "id": "5", "url": "Subpackages.html", "level": "1", "lft": "8", "rgt": "9", "isLeaf": "true", "expanded": "false", "loaded": "true"}      
+	{ "hotel_name": "Broadcaststreams", "id": "1", "url": "Broadcaststreams.html", "level": "0", "lft": "1", "rgt": "2", "isLeaf": "true", "expanded": "false", "loaded": "true"},
+	{ "hotel_name": "Channels", "id": "2", "url": "Channels.html", "level": "0", "lft": "3", "rgt": "4", "isLeaf": "true", "expanded": "false", "loaded": "true"},
+	{ "hotel_name": "Rooms", "id": "3", "url": "Rooms.html", "level": "0", "lft": "5", "rgt": "6", "isLeaf": "true", "expanded": "false", "loaded": "true"},
+	{ "hotel_name": "Subpackages", "id": "4", "url": "Subpackages.html", "level": "0", "lft": "7", "rgt": "8", "isLeaf": "true", "expanded": "false", "loaded": "true"}      
 ]
 }

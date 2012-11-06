@@ -14,7 +14,6 @@ html, body{
 	margin: 0;
 	padding: 0;
 	font-size:70%;
-
 }   
 </style>
 <script type="text/javascript">
@@ -24,7 +23,7 @@ jQuery(function() {
 		treeGridModel: "nested",
 		url: "http://localhost:5080/oflaDemo/tmpDatabase/RootTreeDb.txt",
 		datatype: "json",
-		colNames: ["Hotels", "id", "url"],
+		colNames: ["Hotel", "id", "url"],
 		colModel: [
 			{name: "hotel_name", index: "hotel", sortable: false, title: false},
 			{name: "id", index: "id", hidden: true},
