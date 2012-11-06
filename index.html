@@ -26,10 +26,10 @@ jQuery(function() {
 		treeGrid: true,
 		treeGridModel: "nested",
 		url: "http://localhost:5080/oflaDemo/tmpDatabase/RootTreeDb.txt",
-		treedatatype: "json",
-		colNames: ["Hotel", "id", "url"],
+		datatype: "json",
+		colNames: ["Hotels", "id", "url"],
 		colModel: [
-			{name: "Hotel", index: "hotel", sortable: false, title: false, formatter: cursorpointer, unformat: unformatter},
+			{name: "hotel_name", index: "hotel", sortable: false, title: false, formatter: cursorpointer, unformat: unformatter},
 			{name: "id", index: "id", hidden: true},
 			{name: "url", index: "url", hidden: true}
 		],
@@ -37,6 +37,10 @@ jQuery(function() {
 		width: "auto",
 		hidegrid: false,
 		caption: "Hotel Manager",
+		jsonReader: {
+			root: "rows",
+			repeatitems: false
+		},
 		ExpandColClick: true,
 		shrinkToFit: true,
 		treeIcons: {leaf:'ui-icon-document-b'},

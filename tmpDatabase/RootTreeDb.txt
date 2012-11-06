@@ -1,55 +1,12 @@
-<rows>
-<page>1</page>
-<total>1</total>
-<records>5</records>
-<row>
-<cell>Hotel</cell>
-<cell>1</cell>
-<cell> </cell>
-<cell>0</cell>
-<cell>0</cell>
-<cell>9</cell>
-<cell>false</cell>
-<cell>true</cell>
-</row>
-<row>
-<cell>Rooms</cell>
-<cell>2</cell>
-<cell>Rooms.html</cell>
-<cell>1</cell>
-<cell>1</cell>
-<cell>2</cell>
-<cell>true</cell>
-<cell>false</cell>
-</row>
-<row>
-<cell>Subpackages</cell>
-<cell>3</cell>
-<cell>Subpackages.html</cell>
-<cell>1</cell>
-<cell>3</cell>
-<cell>4</cell>
-<cell>true</cell>
-<cell>false</cell>
-</row>
-<row>
-<cell>Channels</cell>
-<cell>4</cell>
-<cell>Channels.html</cell>
-<cell>1</cell>
-<cell>5</cell>
-<cell>6</cell>
-<cell>true</cell>
-<cell>false</cell>
-</row>
-<row>
-<cell>Broadcaststreams</cell>
-<cell>5</cell>
-<cell>Broadcaststreams.html</cell>
-<cell>1</cell>
-<cell>7</cell>
-<cell>8</cell>
-<cell>true</cell>
-<cell>false</cell>
-</row>
-</rows>
+{
+"page":"1",
+"total":"1",
+"records":"10000",
+"rows": [
+	{ "hotel_name": "Hotel", "id": "1", "url": "", "level": "0", "lft": "1", "rgt": "10", "isLeaf": "false", "expanded": "true", "loaded": "true"},
+	{ "hotel_name": "Broadcaststreams", "id": "2", "url": "Broadcaststreams.html", "level": "1", "lft": "2", "rgt": "3", "isLeaf": "true", "expanded": "false", "loaded": "true"},
+	{ "hotel_name": "Channels", "id": "3", "url": "Channels.html", "level": "1", "lft": "4", "rgt": "5", "isLeaf": "true", "expanded": "false", "loaded": "true"},
+	{ "hotel_name": "Rooms", "id": "4", "url": "Rooms.html", "level": "1", "lft": "6", "rgt": "7", "isLeaf": "true", "expanded": "false", "loaded": "true"},
+	{ "hotel_name": "Subpackages", "id": "5", "url": "Subpackages.html", "level": "1", "lft": "8", "rgt": "9", "isLeaf": "true", "expanded": "false", "loaded": "true"}      
+]
+}
