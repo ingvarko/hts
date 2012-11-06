@@ -14,10 +14,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	font-size:90%;
-	}
-.pointer { 
-cursor: pointer;
-}  
+}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -29,10 +26,10 @@ $(function() {
 		height: "auto",
 		colNames:["Num", "Broadcast Name", "Description", "Image"],
 		colModel:[
-			{name: "num", index: "num",  width: 65, editable: true, align: "center", title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "broadcastname", index: "broadcast name",  width: 150, editable: true, align: "center", title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "description", index: "description", width: 175, editable: true, edittype: "textarea", editoptions: {rows:"2", cols:"25"}, align: "center", title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "image", index: "image",  width: 100, sortable: false, align: "center", title: false, formatter: cursorpointer, unformat: unformatter}
+			{name: "num", index: "num",  width: 65, editable: true, align: "center", title: false},
+			{name: "broadcastname", index: "broadcast name",  width: 150, editable: true, align: "center", title: false},
+			{name: "description", index: "description", width: 175, editable: true, edittype: "textarea", editoptions: {rows:"2", cols:"25"}, align: "center", title: false},
+			{name: "image", index: "image",  width: 100, sortable: false, align: "center", title: false}
 		],
 		pager: "#panel",
 		pgbuttons: false,
@@ -57,14 +54,6 @@ $(function() {
 		editurl: 'http://localhost:5080/oflaDemo/tmpDatabase/ChannelsDb.txt'
 	});
 	jQuery("#Channels").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});	
-	function cursorpointer(cellvalue, options, rowObject){ 
-		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
-		return newformat; 
-	};
-	function unformatter(cellvalue, options){
-		cellvalue=cellvalue.replace('<span class="pointer">','');
-		return cellvalue.replace('<span class="pointer">','');
-	};
 });
 </script>
 </head>

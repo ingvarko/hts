@@ -14,10 +14,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	font-size:90%;
-	}
-.pointer { 
-cursor: pointer;
-}  
+} 
 </style>
 <script type="text/javascript">
 jQuery(function() {
@@ -27,11 +24,11 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num", "Subpackage Name", "Description", "Cost", "Channels"],
 		colModel:[
-			{name: "num", width: 30, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
-	 		{name: "subpackagename", width: 100, sortable: false, align: "center", editable:true, title: false, formatter: cursorpointer, unformat: unformatter},
+			{name: "num", width: 30, align: "center", editable: true, title: false},
+	 		{name: "subpackagename", width: 100, sortable: false, align: "center", editable:true, title: false},
 			{name: "description", width: 175, sortable: false, align: "center", editable: true, edittype: "textarea", editoptions: {rows:"2",cols:"25"}, title:false, formatter:cursorpointer, unformat: unformatter},
-			{name: "cost",width: 75, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "channels", width: 175, align: "center", editable: true, edittype: "select", editoptions: {value:"NG:National Geographic;DCH:Discovery channel;JETIX:Jetix"}, title: false, formatter: cursorpointer, unformat: unformatter}
+			{name: "cost",width: 75, align: "center", editable: true, title: false},
+			{name: "channels", width: 175, align: "center", editable: true, edittype: "select", editoptions: {value:"NG:National Geographic;DCH:Discovery channel;JETIX:Jetix"}, title: false}
 		],
 		hidegrid: false,
 		caption: "Subpackages",
@@ -59,14 +56,6 @@ jQuery(function() {
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/SubpackagesDb.txt'
 	});
 	jQuery("#Subpackages").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
-	function cursorpointer(cellvalue, options, rowObject){ 
-		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
-		return newformat; 
-	};
-	function unformatter(cellvalue, options){
-		cellvalue=cellvalue.replace('<span class="pointer">','');
-		return cellvalue.replace('<span class="pointer">','');
-	};
 });
 </script>
 </head>
