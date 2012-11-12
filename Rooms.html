@@ -14,10 +14,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	font-size:90%;
-	}
-.pointer { 
-cursor: pointer;
-}    
+}   
 </style>
 <script type="text/javascript">
 jQuery(function() {
@@ -37,9 +34,9 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num", "Room name", "Subspackage", "IP"],
 		colModel:[
-			{name: "num", width: 65, sortable: true, editable: true, align: "center", title: false, formatter: cursorpointer, unformat: unformatter},
-	 		{name: "room_name", width: 125, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "subspackage", width: 175, sortable: false, align: "center", editable: true, edittype: "select", editoptions: {value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}, title: false, formatter: cursorpointer, unformat: unformatter},
+			{name: "num", width: 65, sortable: true, editable: true, align: "center", title: false},
+	 		{name: "room_name", width: 125, sortable: false, align: "center", editable: true, title: false},
+			{name: "subspackage", width: 175, sortable: false, align: "center", editable: true, edittype: "select", editoptions: {value:"SP:Standart Package;AP:Advanced Package;18plus:Package 18+"}, title: false},
 			{name: "ip", hidden: true, editable: true}
 		],
 		hidegrid: false,
@@ -69,14 +66,6 @@ jQuery(function() {
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/RoomsDb.txt'
 	});
 	jQuery("#Rooms").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
-	function cursorpointer(cellvalue, options, rowObject){ 
-		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
-		return newformat; 
-	};
-	function unformatter(cellvalue, options){
-		cellvalue=cellvalue.replace('<span class="pointer">','');
-		return cellvalue.replace('<span class="pointer">','');
-	};
 });
 </script>
 </head>

@@ -14,10 +14,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	font-size:90%;
-	}
-.pointer { 
-cursor: pointer;
-}  
+} 
 </style>
 <script type="text/javascript">
 jQuery(function() {
@@ -27,13 +24,13 @@ jQuery(function() {
 		datatype: "json",
 		colNames:["Num", "Active", "Name", "Published", "Unpublished", "Updated", "Channel"],
 		colModel:[
-			{name: "num", width: 65, editable: true, align: "center", title: false, formatter: cursorpointer, unformat: unformatter},
+			{name: "num", width: 65, editable: true, align: "center", title: false},
 	 		{name: "active", hidden: true, editable: true},
-			{name: "name", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "pb", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "upb", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "updated", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter},
-			{name: "channel", width: 175, sortable: false, align: "center", editable: true, title: false, formatter: cursorpointer, unformat: unformatter}
+			{name: "name", width: 175, sortable: false, align: "center", editable: true, title: false},
+			{name: "pb", width: 175, sortable: false, align: "center", editable: true, title: false},
+			{name: "upb", width: 175, sortable: false, align: "center", editable: true, title: false},
+			{name: "updated", width: 175, sortable: false, align: "center", editable: true, title: false},
+			{name: "channel", width: 175, sortable: false, align: "center", editable: true, title: false}
 		],
 		hidegrid: false,
 		caption: "Broadcast Streams",
@@ -61,14 +58,6 @@ jQuery(function() {
 		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/BroadcaststreamsDb.txt'
 	});
 	jQuery("#bs").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
-	function cursorpointer(cellvalue, options, rowObject){ 
-		var newformat='<span class="pointer">'+cellvalue+'</span>'; 
-		return newformat; 
-	};
-	function unformatter(cellvalue, options){
-		cellvalue=cellvalue.replace('<span class="pointer">','');
-		return cellvalue.replace('<span class="pointer">','');
-	};
 });
 </script>
 </head>
