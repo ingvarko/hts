@@ -64,6 +64,5 @@ public class Hotel {
 		json.accumulateAll((Map<String, String>) map);
 
 		return json.toString();
-
 	}
 }

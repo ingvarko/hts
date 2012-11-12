@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 
+//TODO: rename com.hts.entities to com.hts.entity
+//TODO: Clean the code - isActive vs isStatus some redundancy
+
 @Entity
 @Table(name = "BROADCASTSTREAM")
 public class BroadcastStream {
