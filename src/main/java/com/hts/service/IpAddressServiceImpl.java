@@ -64,7 +64,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 	@Override
 	public boolean isBroadcastStreamAllowedForIP(String ipAddress, String broadcastStreamName)
 			throws UnknownHostException, AppException {
-		log.info("calling isBroadcastStreamAllowedForIP(" + ipAddress + "," + broadcastStreamName + ");");
+		log.info("Calling isBroadcastStreamAllowedForIP(" + ipAddress + "," + broadcastStreamName + ");");
 
 		IpAddress ipAddr= ipAddressDAO.getByIp(ipAddress);
 		if (ipAddr == null)
@@ -82,6 +82,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 		Channel channel = new ChannelServiceImpl().getByBroadcastName(broadcastStreamName);
 		if (channel ==null){
 			//TODO return false
+			log.info("Access to Channel allowed");
 			return true;
 		}
 		

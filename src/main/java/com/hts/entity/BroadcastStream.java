@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 
 @Entity
 @Table(name = "BROADCASTSTREAM")
@@ -15,9 +18,15 @@ public class BroadcastStream {
 
 	public BroadcastStream(String streamName) {
 		this.streamName = streamName;
+		this.setPublishedDate(new Date());
+		this.setUpdateDate(this.getPublishedDate());
+		this.setActive(BroadcastStream.ACTIVE);
 	}
 
 	public BroadcastStream() {
+		this.setPublishedDate(new Date());
+		this.setUpdateDate(this.getPublishedDate());
+		this.setActive(BroadcastStream.ACTIVE);
 	}
 
 	public final static boolean ACTIVE = true;

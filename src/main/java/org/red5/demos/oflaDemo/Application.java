@@ -1,7 +1,5 @@
 package org.red5.demos.oflaDemo;
 
-import java.net.UnknownHostException;
-
 import org.red5.server.adapter.ApplicationAdapter;
 import org.red5.server.api.IConnection;
 import org.red5.server.api.Red5;
@@ -11,9 +9,7 @@ import org.red5.server.api.stream.IPlayItem;
 import org.red5.server.api.stream.IServerStream;
 import org.red5.server.api.stream.ISubscriberStream;
 
-import com.hts.exceptions.AppException;
-import com.hts.service.BroadcastStreamServiceImpl;
-import com.hts.service.IpAddressServiceImpl;
+import com.hts.client.HtsRESTClient;
 
 public class Application extends ApplicationAdapter {
 
@@ -23,15 +19,9 @@ public class Application extends ApplicationAdapter {
 
 	@Override
 	public void streamPublishStart(IBroadcastStream stream) {
-		BroadcastStreamServiceImpl broadcastStreamServiceImpl = new BroadcastStreamServiceImpl();
-		try {
-			broadcastStreamServiceImpl.create(stream.getPublishedName());
-			broadcastStreamServiceImpl.getActiveByName(stream.getPublishedName());
-		} catch (AppException e) {
-			e.printStackTrace();
-		} finally {
-			super.streamPublishStart(stream);
-		}
+		HtsRESTClient.create(stream.getPublishedName());
+
+		super.streamPublishStart(stream);
 	}
 
 	@Override
@@ -39,60 +29,46 @@ public class Application extends ApplicationAdapter {
 		// log w3c connect event
 		IConnection conn = Red5.getConnectionLocal();
 		// converted to seconds
-		long publishDuration = (System.currentTimeMillis() - stream
-				.getCreationTime()) / 1000;
+		long publishDuration = (System.currentTimeMillis() - stream.getCreationTime()) / 1000;
 		if (conn != null) {
 			log.info(
 					"IY - W3C x-category:stream x-event:unpublish c-ip:{} cs-bytes:{} sc-bytes:{} x-sname:{} x-file-length:{} x-name:{}",
-					new Object[] { conn.getRemoteAddress(),
-							conn.getReadBytes(), conn.getWrittenBytes(),
-							stream.getName(), publishDuration,
-							stream.getPublishedName() });
+					new Object[] { conn.getRemoteAddress(), conn.getReadBytes(), conn.getWrittenBytes(),
+							stream.getName(), publishDuration, stream.getPublishedName() });
 
-			BroadcastStreamServiceImpl broadcastStreamServiceImpl = new BroadcastStreamServiceImpl();
-			try {
-				broadcastStreamServiceImpl.unregisterBroadcastStream(stream
-						.getPublishedName());
-			} catch (AppException e) {
-				e.printStackTrace();
-			} finally {
-				super.streamBroadcastClose(stream);
-			}
+			HtsRESTClient.unregister(stream.getPublishedName());
+
+			super.streamBroadcastClose(stream);
 		}
 	}
 
 	@Override
-	public void streamPlayItemPlay(ISubscriberStream stream, IPlayItem item,
-			boolean isLive) {
+	public void streamPlayItemPlay(ISubscriberStream stream, IPlayItem item, boolean isLive) {
 		// log w3c connect event
-		log.info(
-				"IY - W3C x-category:stream x-event:play c-ip:{} x-sname:{} x-name:{}",
-				new Object[] { Red5.getConnectionLocal().getRemoteAddress(),
-						stream.getName(), item.getName() });
-		log.info("Checking if conection allowed for c-ip{} to stream: {}", Red5
-				.getConnectionLocal().getRemoteAddress(), item.getName());
+		log.info("IY - W3C x-category:stream x-event:play c-ip:{} x-sname:{} x-name:{}", new Object[] {
+				Red5.getConnectionLocal().getRemoteAddress(), stream.getName(), item.getName() });
+		log.info("Checking if conection allowed for c-ip{} to stream: {}",
+				Red5.getConnectionLocal().getRemoteAddress(), item.getName());
 		try {
-			boolean status = new IpAddressServiceImpl()
-			.isBroadcastStreamAllowedForIP(Red5.getConnectionLocal()
-					.getRemoteAddress(), item.getName());
-			
-			log.info("Is connection alloved:{}", status );
-			
-			//TODO use status
+			boolean status = HtsRESTClient.checkAccess(item.getName(), Red5.getConnectionLocal()
+					.getRemoteAddress());
+
+			log.info("Is connection alloved:{}", status);
+
+			// TODO use status
 			status = true;
-			if (!status){
-//			if (true){
-				log.info("Closing connection for  c-ip{} to stream: {}", Red5
-				.getConnectionLocal().getRemoteAddress(), item.getName());
+			if (!status) {
+				// if (true){
+				log.info("Closing connection for  c-ip{} to stream: {}", Red5.getConnectionLocal().getRemoteAddress(),
+						item.getName());
 				stream.close();
 			}
-		} catch (UnknownHostException e) {
+		}
+		catch (Exception e) {
 			log.error(e.toString());
 			e.printStackTrace();
-		} catch (AppException e) {
-			log.error(e.toString());
-			e.printStackTrace();
-		} finally {
+		}
+		finally {
 			super.streamPlayItemPlay(stream, item, isLive);
 		}
 	}
@@ -105,9 +81,9 @@ public class Application extends ApplicationAdapter {
 		System.out.println("oflaDemo appStart");
 		appScope = app;
 		try {
-			new  BroadcastStreamServiceImpl().unregisterAllActiveBroadcastStreams();
+			HtsRESTClient.unregisterAll();
 		}
-		catch (AppException e) {
+		catch (Exception e) {
 			log.error(e.getLocalizedMessage());
 		}
 		return true;
