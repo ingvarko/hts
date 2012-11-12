@@ -2,8 +2,8 @@ package com.hts.service;
 
 import java.util.List;
 
-import com.hts.entities.Channel;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Channel;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public interface IChannelService {

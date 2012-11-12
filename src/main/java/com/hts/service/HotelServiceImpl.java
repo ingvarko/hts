@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.hts.dao.DAO;
 import com.hts.dao.HotelDAOHibernateImpl;
-import com.hts.entities.Hotel;
+import com.hts.entity.Hotel;
 import com.hts.exceptions.AppException;
 
 public class HotelServiceImpl implements IHotelService {

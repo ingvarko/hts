@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
-import com.hts.entities.Channel;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Channel;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public class SubscriptionPackageDAOHibernateImpl extends DAO implements ISubscriptionPackageDAO {

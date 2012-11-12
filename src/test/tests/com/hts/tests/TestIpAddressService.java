@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hts.entities.Channel;
-import com.hts.entities.IpAddress;
-import com.hts.entities.Room;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Channel;
+import com.hts.entity.IpAddress;
+import com.hts.entity.Room;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 import com.hts.service.ChannelServiceImpl;
 import com.hts.service.IpAddressServiceImpl;

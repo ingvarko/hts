@@ -2,7 +2,7 @@ package com.hts.service;
 
 import java.net.UnknownHostException;
 
-import com.hts.entities.IpAddress;
+import com.hts.entity.IpAddress;
 import com.hts.exceptions.AppException;
 
 public interface IIpAddressService {

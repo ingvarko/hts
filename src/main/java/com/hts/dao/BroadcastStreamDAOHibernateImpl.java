@@ -5,9 +5,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
-import com.hts.entities.BroadcastStream;
-import com.hts.exceptions.AppException;
 import org.hibernate.Query;
+
+import com.hts.entity.BroadcastStream;
+import com.hts.exceptions.AppException;
 
 public class BroadcastStreamDAOHibernateImpl extends DAO implements IBroadcastStreamDAO {
 	final Logger log = Logger.getLogger(this.getClass());
@@ -149,7 +150,7 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements IBroadcastSt
 	public List<BroadcastStream> getActiveByName(String name) throws AppException {
 		try {
 			begin();
-			Query q = getSession().createQuery("from BroadcastStream s where s.streamName= :sname and s.isActive=1");
+			Query q = getSession().createQuery("from BroadcastStream s where s.streamName= :sname and s.active=true");
 			q.setString("sname", name.toString());
 			List<BroadcastStream> list = q.list();
 
@@ -167,7 +168,7 @@ public class BroadcastStreamDAOHibernateImpl extends DAO implements IBroadcastSt
 	public List<BroadcastStream> getAllActive() throws AppException {
 		try {
 			begin();
-			Query q = getSession().createQuery("from BroadcastStream s where s.isActive=true");
+			Query q = getSession().createQuery("from BroadcastStream s where s.active=true");
 			List<BroadcastStream> list = q.list();
 			commit();
 

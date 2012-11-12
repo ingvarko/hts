@@ -1,27 +1,21 @@
-package com.hts.entities;
-
-import java.util.HashMap;
-import java.util.Map;
+package com.hts.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import net.sf.json.JSONObject;
 
 @Entity
 @Table(name = "HOTEL")
-public class Hotel {
+public class NetworkAddress {
 	private Long uuId;
 	private String hotelName;
 	private String hotelAddr;
 
-	public Hotel() {
+	public NetworkAddress() {
 	}
 
-	public Hotel(String name) {
+	public NetworkAddress(String name) {
 		this.setHotelName(name);
 	}
 
@@ -51,18 +45,5 @@ public class Hotel {
 
 	public void setHotelAddr(String hotelAddr) {
 		this.hotelAddr = hotelAddr;
-	}
-
-	@Transient
-	public String getJson() {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("uuId", uuId.toString());
-		map.put("hotelName", hotelName);
-		map.put("hotelAddress", hotelAddr);
-
-		JSONObject json = new JSONObject();
-		json.accumulateAll((Map<String, String>) map);
-
-		return json.toString();
 	}
 }

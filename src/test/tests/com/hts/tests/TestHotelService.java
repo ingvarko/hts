@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hts.entities.Hotel;
+import com.hts.entity.Hotel;
 import com.hts.exceptions.AppException;
 import com.hts.service.HotelServiceImpl;
 

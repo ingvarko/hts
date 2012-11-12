@@ -1,4 +1,4 @@
-package com.hts.entities;
+package com.hts.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,9 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
-
-//TODO: rename com.hts.entities to com.hts.entity
-//TODO: Clean the code - isActive vs isStatus some redundancy
 
 @Entity
 @Table(name = "BROADCASTSTREAM")
@@ -35,7 +32,7 @@ public class BroadcastStream {
 	private String streamName;
 
 	@Column(name = "ACTIVE")
-	private Boolean isActive;
+	private Boolean active;
 
 	@Column(name = "PUBLISHED_DATE")
 	private Date publishedDate;
@@ -54,12 +51,12 @@ public class BroadcastStream {
 		this.streamName = streamName;
 	}
 
-	public boolean isStatus() {
-		return isActive;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setStatus(boolean status) {
-		this.isActive = status;
+	public void setActive(boolean status) {
+		this.active = status;
 	}
 
 	public Date getUnpublishedDate() {
@@ -78,13 +75,13 @@ public class BroadcastStream {
 		this.updateDate = updateDate;
 	}
 
-	public boolean isActive() {
-		return isActive == true;
-	}
+//	public boolean isActive() {
+//		return isActive == true;
+//	}
 
-	public boolean isInactive() {
-		return isActive == false;
-	}
+//	public boolean isInactive() {
+//		return isActive == false;
+//	}
 
 	@Override
 	public String toString() {

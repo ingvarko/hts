@@ -1,12 +1,13 @@
 package com.hts.dao;
 
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
-import com.hts.entities.Room;
+import com.hts.entity.Room;
 import com.hts.exceptions.AppException;
 
 public class RoomDAOHibernateImpl extends DAO implements IRoomDAO {

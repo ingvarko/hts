@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
-import com.hts.entities.Channel;
+import com.hts.entity.Channel;
 import com.hts.exceptions.AppException;
 
 public class ChannelDAOHibernateImpl extends DAO implements IChannelDAO {

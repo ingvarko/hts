@@ -1,12 +1,13 @@
 package com.hts.dao;
 
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
-import com.hts.entities.IpAddress;
+import com.hts.entity.IpAddress;
 import com.hts.exceptions.AppException;
 
 public class IpAddressDAOHibernateImpl extends DAO implements IIpAddressDAO {

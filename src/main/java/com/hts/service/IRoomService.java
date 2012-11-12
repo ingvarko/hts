@@ -2,9 +2,9 @@ package com.hts.service;
 
 import java.util.List;
 
-import com.hts.entities.Hotel;
-import com.hts.entities.Room;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Hotel;
+import com.hts.entity.Room;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public interface IRoomService {

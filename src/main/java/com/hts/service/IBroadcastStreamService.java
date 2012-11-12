@@ -2,7 +2,7 @@ package com.hts.service;
 
 import java.util.List;
 
-import com.hts.entities.BroadcastStream;
+import com.hts.entity.BroadcastStream;
 import com.hts.exceptions.AppException;
 
 public interface IBroadcastStreamService {

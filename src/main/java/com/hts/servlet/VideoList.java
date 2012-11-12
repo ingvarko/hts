@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.hts.entities.Channel;
+import com.hts.entity.Channel;
 import com.hts.exceptions.AppException;
 import com.hts.service.ChannelServiceImpl;
 

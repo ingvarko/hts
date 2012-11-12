@@ -2,7 +2,7 @@ package com.hts.dao;
 
 import java.util.List;
 
-import com.hts.entities.Room;
+import com.hts.entity.Room;
 import com.hts.exceptions.AppException;
 
 public interface IRoomDAO {
