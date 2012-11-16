@@ -2,7 +2,7 @@ package com.hts.dao;
 
 import java.util.List;
 
-import com.hts.entities.Hotel;
+import com.hts.entity.Hotel;
 import com.hts.exceptions.AppException;
 
 public interface IHotelDAO {

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.hts.entities.Channel;
+import com.hts.entity.Channel;
 import com.hts.exceptions.AppException;
 import com.hts.service.ChannelServiceImpl;
 

@@ -10,9 +10,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.hts.dao.SubscriptionPackageDAOHibernateImpl;
-import com.hts.entities.Hotel;
-import com.hts.entities.Room;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Hotel;
+import com.hts.entity.Room;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 import com.hts.service.HotelServiceImpl;
 import com.hts.service.RoomServiceImpl;

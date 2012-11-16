@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
-import com.hts.entities.Hotel;
+import com.hts.entity.Hotel;
 import com.hts.exceptions.AppException;
 
 public class HotelDAOHibernateImpl extends DAO implements IHotelDAO {

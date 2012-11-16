@@ -1,13 +1,13 @@
 package com.hts.service;
 
-import org.apache.log4j.Logger;
-
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.hts.dao.BroadcastStreamDAOHibernateImpl;
 import com.hts.dao.DAO;
-import com.hts.entities.BroadcastStream;
+import com.hts.entity.BroadcastStream;
 import com.hts.exceptions.AppException;
 
 public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
@@ -21,7 +21,7 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 		BroadcastStream stream = new BroadcastStream(name);
 		stream.setPublishedDate(new Date());
 		stream.setUpdateDate(stream.getPublishedDate());
-		stream.setStatus(BroadcastStream.ACTIVE);
+		stream.setActive(BroadcastStream.ACTIVE);
 
 		broadcastStreamDAO.create(stream);
 		DAO.close();
@@ -56,7 +56,7 @@ public class BroadcastStreamServiceImpl implements IBroadcastStreamService {
 	private void setInactive(BroadcastStream str) {
 		str.setUpdateDate(new Date());
 		str.setUnpublishedDate(new Date());
-		str.setStatus(BroadcastStream.INACTIVE);
+		str.setActive(BroadcastStream.INACTIVE);
 	}
 
 	@Override

@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 
 import com.hts.dao.ChannelDAOHibernateImpl;
 import com.hts.dao.DAO;
-import com.hts.entities.BroadcastStream;
-import com.hts.entities.Channel;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.BroadcastStream;
+import com.hts.entity.Channel;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public class ChannelServiceImpl implements IChannelService {

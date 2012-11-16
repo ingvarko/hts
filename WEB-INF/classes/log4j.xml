@@ -11,6 +11,16 @@
         <level value="WARN" />
         <appender-ref ref="CA" />
     </logger>
+    <logger name="javax.ws" additivity="false">
+        <!-- level info logs -->
+        <level value="ALL" />
+        <appender-ref ref="CA" />
+    </logger>
+    <logger name="com.sun.jersey" additivity="false">
+        <!-- level info logs -->
+        <level value="ALL" />
+        <appender-ref ref="CA" />
+    </logger>
     <logger name="com.hts" additivity="false">
         <level value="ALL" />
         <appender-ref ref="CA" />

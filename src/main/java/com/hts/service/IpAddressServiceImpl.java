@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 import com.hts.dao.DAO;
 import com.hts.dao.IpAddressDAOHibernateImpl;
 import com.hts.dao.SubscriptionPackageDAOHibernateImpl;
-import com.hts.entities.Channel;
-import com.hts.entities.IpAddress;
-import com.hts.entities.Room;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Channel;
+import com.hts.entity.IpAddress;
+import com.hts.entity.Room;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public class IpAddressServiceImpl implements IIpAddressService {
@@ -64,7 +64,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 	@Override
 	public boolean isBroadcastStreamAllowedForIP(String ipAddress, String broadcastStreamName)
 			throws UnknownHostException, AppException {
-		log.info("calling isBroadcastStreamAllowedForIP(" + ipAddress + "," + broadcastStreamName + ");");
+		log.info("Calling isBroadcastStreamAllowedForIP(" + ipAddress + "," + broadcastStreamName + ");");
 
 		IpAddress ipAddr= ipAddressDAO.getByIp(ipAddress);
 		if (ipAddr == null)
@@ -82,6 +82,7 @@ public class IpAddressServiceImpl implements IIpAddressService {
 		Channel channel = new ChannelServiceImpl().getByBroadcastName(broadcastStreamName);
 		if (channel ==null){
 			//TODO return false
+			log.info("Access to Channel allowed");
 			return true;
 		}
 		

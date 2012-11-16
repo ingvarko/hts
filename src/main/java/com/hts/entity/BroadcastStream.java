@@ -1,4 +1,4 @@
-package com.hts.entities;
+package com.hts.entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 
 @Entity
 @Table(name = "BROADCASTSTREAM")
@@ -15,9 +18,15 @@ public class BroadcastStream {
 
 	public BroadcastStream(String streamName) {
 		this.streamName = streamName;
+		this.setPublishedDate(new Date());
+		this.setUpdateDate(this.getPublishedDate());
+		this.setActive(BroadcastStream.ACTIVE);
 	}
 
 	public BroadcastStream() {
+		this.setPublishedDate(new Date());
+		this.setUpdateDate(this.getPublishedDate());
+		this.setActive(BroadcastStream.ACTIVE);
 	}
 
 	public final static boolean ACTIVE = true;
@@ -32,7 +41,7 @@ public class BroadcastStream {
 	private String streamName;
 
 	@Column(name = "ACTIVE")
-	private Boolean isActive;
+	private Boolean active;
 
 	@Column(name = "PUBLISHED_DATE")
 	private Date publishedDate;
@@ -51,12 +60,12 @@ public class BroadcastStream {
 		this.streamName = streamName;
 	}
 
-	public boolean isStatus() {
-		return isActive;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setStatus(boolean status) {
-		this.isActive = status;
+	public void setActive(boolean status) {
+		this.active = status;
 	}
 
 	public Date getUnpublishedDate() {
@@ -75,13 +84,13 @@ public class BroadcastStream {
 		this.updateDate = updateDate;
 	}
 
-	public boolean isActive() {
-		return isActive == true;
-	}
+//	public boolean isActive() {
+//		return isActive == true;
+//	}
 
-	public boolean isInactive() {
-		return isActive == false;
-	}
+//	public boolean isInactive() {
+//		return isActive == false;
+//	}
 
 	@Override
 	public String toString() {

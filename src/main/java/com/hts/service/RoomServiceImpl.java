@@ -1,14 +1,15 @@
 package com.hts.service;
 
 import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.hts.dao.DAO;
 import com.hts.dao.HotelDAOHibernateImpl;
 import com.hts.dao.RoomDAOHibernateImpl;
-import com.hts.entities.Hotel;
-import com.hts.entities.Room;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Hotel;
+import com.hts.entity.Room;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public class RoomServiceImpl implements IRoomService {

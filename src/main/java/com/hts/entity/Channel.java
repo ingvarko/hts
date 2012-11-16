@@ -1,4 +1,4 @@
-package com.hts.entities;
+package com.hts.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

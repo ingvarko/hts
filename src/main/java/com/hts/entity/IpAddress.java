@@ -1,4 +1,4 @@
-package com.hts.entities;
+package com.hts.entity;
 
 import java.net.UnknownHostException;
 import java.util.regex.Matcher;

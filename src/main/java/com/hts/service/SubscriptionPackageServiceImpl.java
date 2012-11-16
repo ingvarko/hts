@@ -2,12 +2,13 @@ package com.hts.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import com.hts.dao.DAO;
 import com.hts.dao.SubscriptionPackageDAOHibernateImpl;
-import com.hts.entities.Channel;
-import com.hts.entities.SubscriptionPackage;
+import com.hts.entity.Channel;
+import com.hts.entity.SubscriptionPackage;
 import com.hts.exceptions.AppException;
 
 public class SubscriptionPackageServiceImpl implements ISubscriptionPackageService {
