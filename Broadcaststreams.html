@@ -14,18 +14,19 @@ html, body{
 	margin: 0;
 	padding: 0;
 	font-size:90%;
-} 
+	} 
 </style>
 <script type="text/javascript">
 jQuery(function() {
 	var lastsel;
+	var allRowsData=[];
 	jQuery("#bs").jqGrid({			
 		url: 'http://localhost:5080/oflaDemo/tmpDatabase/BroadcaststreamsDb.txt',
 		datatype: "json",
 		colNames:["Num", "Active", "Name", "Published", "Unpublished", "Updated", "Channel"],
 		colModel:[
-			{name: "num", width: 65, editable: true, align: "center", title: false},
-	 		{name: "active", hidden: true, editable: true},
+			{name: "num", width: 65, sortable: false, editable: true, align: "center", title: false},
+	 		{name: "active", hidden: true, sortable: false, editable: true},
 			{name: "name", width: 175, sortable: false, align: "center", editable: true, title: false},
 			{name: "pb", width: 175, sortable: false, align: "center", editable: true, title: false},
 			{name: "upb", width: 175, sortable: false, align: "center", editable: true, title: false},
@@ -39,6 +40,8 @@ jQuery(function() {
 		pginput: false,
 		width: "auto",
 		height: "auto",
+		loadonce: true,
+		toolbar: [true, "top"],
 		jsonReader: {
     			root: "rows",
     			repeatitems: false
@@ -55,14 +58,73 @@ jQuery(function() {
 				lastsel=null;
 			}
 		},
-		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/BroadcaststreamsDb.txt'
-	});
-	jQuery("#bs").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});
+		loadComplete: function(){
+			var allIds=jQuery("#bs").jqGrid('getDataIDs');
+			for(var i=0;i<allIds.length;i++){
+				allRowsData[i]=jQuery("#bs").jqGrid('getRowData', allIds[i]);
+			}
+		},		
+		editurl:'http://localhost:5080/oflaDemo/tmpDatabase/BroadcaststreamsDb.txt',
+	});	
+	jQuery("#bs").jqGrid('navGrid', '#panel', {edit: false, add: false, del: false, search: false, refresh: false});		 
+	jQuery("#t_bs").append($("#radio"));
+	jQuery("#t_bs").height(25);
+    	jQuery("#radio").buttonset();
+	jQuery ( function(){
+		jQuery("#all").click(function(){
+    			var allIds=jQuery("#bs").jqGrid('getDataIDs');
+			for(var i=0;i<allIds.length;i++){
+				jQuery("#bs").jqGrid('delRowData', allIds[i]);
+			};
+			for(var i=0;i<allRowsData.length;i++){
+				jQuery("#bs").jqGrid('addRowData', i, allRowsData[i]);
+			};	
+   		});
+   		jQuery("#active").click(function(){
+    			var allIds=jQuery("#bs").jqGrid('getDataIDs');
+			for(var i=0;i<allIds.length;i++){
+				jQuery("#bs").jqGrid('delRowData', allIds[i]);
+			};
+			for(var i=0;i<allRowsData.length;i++){
+				if(allRowsData[i].active==1){
+					jQuery("#bs").jqGrid('addRowData', i, allRowsData[i]);
+				}
+			};
+   		});
+   		jQuery("#inactive").click(function(){
+   			var allIds=jQuery("#bs").jqGrid('getDataIDs');
+			for(var i=0;i<allIds.length;i++){
+				jQuery("#bs").jqGrid('delRowData', allIds[i]);
+			};
+			for(var i=0;i<allRowsData.length;i++){
+				if(allRowsData[i].active==0){
+					jQuery("#bs").jqGrid('addRowData', i, allRowsData[i]);
+				}
+			};
+   		});
+		jQuery("#nochannel").click(function(){
+   			var allIds=jQuery("#bs").jqGrid('getDataIDs');
+			for(var i=0;i<allIds.length;i++){
+				jQuery("#bs").jqGrid('delRowData', allIds[i]);
+			};
+			for(var i=0;i<allRowsData.length;i++){
+				if(allRowsData[i].channel==""){
+					jQuery("#bs").jqGrid('addRowData', i, allRowsData[i]);
+				}
+			};
+   		});
+	}); 
+
 });
 </script>
 </head>
 <body>
 <div align="center"><table id="bs"></table></div>
-<div id="panel"></div>
+<div id="panel"></div>	
+<div id="radio" style="font-size: 10px;">
+	<input type="radio" id="all" name="radio" class="filter-button" checked="checked"/><label for="all">All</label>
+	<input type="radio" id="active" name="radio" class="filter-button"/><label for="active">Active</label>
+	<input type="radio" id="inactive" name="radio" class="filter-button"/><label for="inactive">Inactive</label>
+	<input type="radio" id="nochannel" name="radio" class="filter-button"/><label for="nochannel">No Channel</label></div>
 </body>
 </html>
